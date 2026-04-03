@@ -10,7 +10,12 @@
   "ignore": [
     "@captigo/shared",
     "@captigo-examples/react-turnstile",
+    "@captigo-examples/react-signup-turnstile",
+    "@captigo-examples/react-contact-server",
+    "@captigo-examples/react-provider-swap",
+    "@captigo-examples/react-recaptcha-v3",
     "@captigo-examples/vue-turnstile",
+    "@captigo-examples/vue-form-turnstile",
     "@captigo-examples/server-verify"
   ]
 }

@@ -128,11 +128,15 @@ Configuring a different provider is a one-line change at the call site. Framewor
 
 ## Examples
 
-Runnable examples using workspace packages:
+Runnable examples — see [`examples/README.md`](./examples/README.md) for the full list. Highlights:
 
-- [`examples/react-turnstile`](./examples/react-turnstile) — Vite + React, managed and invisible widgets
-- [`examples/vue-turnstile`](./examples/vue-turnstile) — Vite + Vue 3, same patterns
-- [`examples/server-verify`](./examples/server-verify) — Express server verifying tokens from all providers
+- [`examples/react-signup-turnstile`](./examples/react-signup-turnstile) — signup form + Turnstile (client flow)
+- [`examples/react-contact-server`](./examples/react-contact-server) — contact form with **Express + `verifyToken`**
+- [`examples/vue-form-turnstile`](./examples/vue-form-turnstile) — Vue contact form (optional shared API)
+- [`examples/react-provider-swap`](./examples/react-provider-swap) — Turnstile vs hCaptcha, one adapter interface
+- [`examples/react-recaptcha-v3`](./examples/react-recaptcha-v3) — passive score token (verify on server)
+- [`examples/react-turnstile`](./examples/react-turnstile) / [`examples/vue-turnstile`](./examples/vue-turnstile) — widget modes
+- [`examples/server-verify`](./examples/server-verify) — minimal `/verify/*` routes for all providers
 
 ## Monorepo development
 
