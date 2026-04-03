@@ -1,7 +1,6 @@
-import { CaptchaError } from "captigo";
+import { CaptchaError } from "@captigo/core";
 
-const SCRIPT_URL =
-  "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+const SCRIPT_URL = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
 
 // Shared promise so all callers get the same in-flight load.
 let loading: Promise<void> | null = null;

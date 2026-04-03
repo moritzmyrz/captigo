@@ -7,5 +7,5 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   // @captigo/shared is private and must be bundled — do not add it to external.
-  external: ["captigo"],
+  external: ["@captigo/core"],
 });

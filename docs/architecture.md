@@ -7,7 +7,7 @@ This document explains the design decisions behind `captigo`'s abstractions. It'
 ## Package roles
 
 ```
-captigo               Core types, adapter contract, error model — no runtime code
+@captigo/core         Core types, adapter contract, error model — no runtime code
 @captigo/shared       Internal HTTP helpers used by provider packages (private)
 @captigo/turnstile    Cloudflare Turnstile adapter
 @captigo/hcaptcha     hCaptcha adapter
@@ -16,7 +16,7 @@ captigo               Core types, adapter contract, error model — no runtime c
 @captigo/vue          Vue 3 useCaptcha composable + CaptchaWidget component
 ```
 
-Application code only ever depends on `captigo` for types. Framework packages depend on `captigo`. Provider packages depend on both `captigo` and `@captigo/shared`.
+Application code typically depends on `@captigo/core` for types (often transitively via a framework or provider package). Framework packages depend on `@captigo/core`. Provider packages depend on both `@captigo/core` and `@captigo/shared` at build time; `@captigo/shared` is bundled into published provider packages.
 
 ---
 
@@ -109,7 +109,7 @@ Framework packages own:
 - The decision of whether to call `execute()` on submit or let the widget fire automatically
 - Component API design (prop names, event names, styling)
 
-They do **not** know anything about which provider is underneath — they only interact with the `CaptchaAdapter` and `CaptchaWidget` interfaces from `captigo`.
+They do **not** know anything about which provider is underneath — they only interact with the `CaptchaAdapter` and `CaptchaWidget` interfaces from `@captigo/core`.
 
 ---
 

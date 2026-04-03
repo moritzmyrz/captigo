@@ -1,8 +1,8 @@
-import { CaptchaError } from "captigo";
-import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "captigo";
+import { CaptchaError } from "@captigo/core";
+import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "@captigo/core";
 
-import { loadScript } from "./script.js";
 import type { TurnstileConfig } from "./config.js";
+import { loadScript } from "./script.js";
 
 // ─── Internal types ───────────────────────────────────────────────────────────
 
@@ -58,9 +58,15 @@ export class TurnstileWidget implements CaptchaWidget {
       ...(this.config.action !== undefined && { action: this.config.action }),
       ...(this.config.cData !== undefined && { cData: this.config.cData }),
       ...(this.config.retry !== undefined && { retry: this.config.retry }),
-      ...(this.config.retryInterval !== undefined && { "retry-interval": this.config.retryInterval }),
-      ...(this.config.refreshExpired !== undefined && { "refresh-expired": this.config.refreshExpired }),
-      ...(this.config.refreshTimeout !== undefined && { "refresh-timeout": this.config.refreshTimeout }),
+      ...(this.config.retryInterval !== undefined && {
+        "retry-interval": this.config.retryInterval,
+      }),
+      ...(this.config.refreshExpired !== undefined && {
+        "refresh-expired": this.config.refreshExpired,
+      }),
+      ...(this.config.refreshTimeout !== undefined && {
+        "refresh-timeout": this.config.refreshTimeout,
+      }),
 
       callback: (rawToken) => {
         const t: CaptchaToken = {

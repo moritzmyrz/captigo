@@ -1,4 +1,4 @@
-import { CaptchaError } from "captigo";
+import { CaptchaError } from "@captigo/core";
 
 // v2 always uses explicit render so we control when widgets are created.
 const V2_SCRIPT_URL = "https://www.google.com/recaptcha/api.js?render=explicit";
@@ -35,7 +35,11 @@ function injectScript(src: string, providerId: string): Promise<void> {
 export function loadV2Script(): Promise<void> {
   if (typeof window === "undefined") {
     return Promise.reject(
-      new CaptchaError("script-load-failed", "reCAPTCHA can only run in a browser.", "recaptcha-v2"),
+      new CaptchaError(
+        "script-load-failed",
+        "reCAPTCHA can only run in a browser.",
+        "recaptcha-v2",
+      ),
     );
   }
 
@@ -53,7 +57,11 @@ export function loadV2Script(): Promise<void> {
 export function loadV3Script(siteKey: string): Promise<void> {
   if (typeof window === "undefined") {
     return Promise.reject(
-      new CaptchaError("script-load-failed", "reCAPTCHA can only run in a browser.", "recaptcha-v3"),
+      new CaptchaError(
+        "script-load-failed",
+        "reCAPTCHA can only run in a browser.",
+        "recaptcha-v3",
+      ),
     );
   }
 

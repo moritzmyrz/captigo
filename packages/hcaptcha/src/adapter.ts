@@ -5,7 +5,7 @@ import type {
   RenderOptions,
   VerifyOptions,
   VerifyResult,
-} from "captigo";
+} from "@captigo/core";
 
 import type { HCaptchaConfig } from "./config.js";
 import { verifyToken } from "./verify.js";

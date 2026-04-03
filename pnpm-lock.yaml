@@ -23,15 +23,15 @@ importers:
 
   examples/react-turnstile:
     dependencies:
+      '@captigo/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@captigo/react':
         specifier: workspace:*
         version: link:../../packages/react
       '@captigo/turnstile':
         specifier: workspace:*
         version: link:../../packages/turnstile
-      captigo:
-        specifier: workspace:*
-        version: link:../../packages/core
       react:
         specifier: ^18.3.0
         version: 18.3.1
@@ -57,6 +57,9 @@ importers:
 
   examples/server-verify:
     dependencies:
+      '@captigo/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@captigo/hcaptcha':
         specifier: workspace:*
         version: link:../../packages/hcaptcha
@@ -66,9 +69,6 @@ importers:
       '@captigo/turnstile':
         specifier: workspace:*
         version: link:../../packages/turnstile
-      captigo:
-        specifier: workspace:*
-        version: link:../../packages/core
       express:
         specifier: ^4.21.0
         version: 4.22.1
@@ -85,15 +85,15 @@ importers:
 
   examples/vue-turnstile:
     dependencies:
+      '@captigo/core':
+        specifier: workspace:*
+        version: link:../../packages/core
       '@captigo/turnstile':
         specifier: workspace:*
         version: link:../../packages/turnstile
       '@captigo/vue':
         specifier: workspace:*
         version: link:../../packages/vue
-      captigo:
-        specifier: workspace:*
-        version: link:../../packages/core
       vue:
         specifier: ^3.4.0
         version: 3.5.31(typescript@5.9.3)
@@ -119,13 +119,13 @@ importers:
 
   packages/hcaptcha:
     dependencies:
-      '@captigo/shared':
-        specifier: workspace:*
-        version: link:../shared
-      captigo:
+      '@captigo/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
+      '@captigo/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@vitest/coverage-v8':
         specifier: ^3.1.1
         version: 3.2.4(vitest@3.2.4(jsdom@26.1.0)(tsx@4.21.0))
@@ -144,7 +144,7 @@ importers:
 
   packages/react:
     dependencies:
-      captigo:
+      '@captigo/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
@@ -181,13 +181,13 @@ importers:
 
   packages/recaptcha:
     dependencies:
-      '@captigo/shared':
-        specifier: workspace:*
-        version: link:../shared
-      captigo:
+      '@captigo/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
+      '@captigo/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@vitest/coverage-v8':
         specifier: ^3.1.1
         version: 3.2.4(vitest@3.2.4(jsdom@26.1.0)(tsx@4.21.0))
@@ -215,13 +215,13 @@ importers:
 
   packages/turnstile:
     dependencies:
-      '@captigo/shared':
-        specifier: workspace:*
-        version: link:../shared
-      captigo:
+      '@captigo/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:
+      '@captigo/shared':
+        specifier: workspace:*
+        version: link:../shared
       '@vitest/coverage-v8':
         specifier: ^3.1.1
         version: 3.2.4(vitest@3.2.4(jsdom@26.1.0)(tsx@4.21.0))
@@ -240,7 +240,7 @@ importers:
 
   packages/vue:
     dependencies:
-      captigo:
+      '@captigo/core':
         specifier: workspace:*
         version: link:../core
     devDependencies:

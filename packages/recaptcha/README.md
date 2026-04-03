@@ -18,8 +18,10 @@ This package provides two separate factory functions — `recaptchaV2` and
 ## Installation
 
 ```bash
-npm install @captigo/recaptcha
+npm install @captigo/core @captigo/recaptcha
 ```
+
+(`@captigo/core` is also installed automatically as a dependency — listing it explicitly is optional.)
 
 ---
 

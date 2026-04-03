@@ -6,7 +6,7 @@
 /** Minimal shape of a provider verification API response. */
 export interface ProviderVerifyResponse {
   success: boolean;
-  "challenge_ts"?: string;
+  challenge_ts?: string;
   hostname?: string;
   "error-codes"?: string[];
 }

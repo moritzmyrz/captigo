@@ -12,7 +12,7 @@
   "dependencies": {
     "@captigo/react": "workspace:*",
     "@captigo/turnstile": "workspace:*",
-    "captigo": "workspace:*",
+    "@captigo/core": "workspace:*",
     "react": "^18.3.0",
     "react-dom": "^18.3.0"
   },

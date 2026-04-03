@@ -1,6 +1,6 @@
+import type { CaptchaToken } from "@captigo/core";
 import { act, cleanup, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import type { CaptchaToken } from "captigo";
 import { useCaptcha } from "../src/use-captcha.js";
 import type { UseCaptchaOptions } from "../src/use-captcha.js";
 import { createMockAdapter } from "./helpers.js";
@@ -107,9 +107,7 @@ describe("useCaptcha()", () => {
       act(() => {
         fireSuccess("my-token");
       });
-      await waitFor(() =>
-        expect(screen.getByTestId("token").textContent).toBe("my-token"),
-      );
+      await waitFor(() => expect(screen.getByTestId("token").textContent).toBe("my-token"));
 
       act(() => {
         fireExpire();
@@ -169,9 +167,7 @@ describe("useCaptcha()", () => {
 
     it("does not remount the widget when callback identity changes", async () => {
       const { mockAdapter } = createMockAdapter();
-      const { rerender } = render(
-        <TestWidget adapter={mockAdapter} onSuccess={() => void 0} />,
-      );
+      const { rerender } = render(<TestWidget adapter={mockAdapter} onSuccess={() => void 0} />);
 
       // Re-render with a new function instance — should NOT cause a widget remount.
       rerender(<TestWidget adapter={mockAdapter} onSuccess={() => void 0} />);

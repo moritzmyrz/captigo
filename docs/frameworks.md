@@ -9,7 +9,7 @@ Captigo's framework packages are thin wrappers that bind the provider adapter li
 ### Installation
 
 ```bash
-pnpm add @captigo/react @captigo/turnstile  # or any other provider
+pnpm add @captigo/core @captigo/react @captigo/turnstile  # or any other provider
 ```
 
 ### `<Captcha>` component
@@ -119,7 +119,7 @@ function Component() {
 ### Installation
 
 ```bash
-pnpm add @captigo/vue @captigo/turnstile
+pnpm add @captigo/core @captigo/vue @captigo/turnstile
 ```
 
 ### `<Captcha>` component

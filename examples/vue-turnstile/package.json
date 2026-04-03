@@ -12,7 +12,7 @@
   "dependencies": {
     "@captigo/turnstile": "workspace:*",
     "@captigo/vue": "workspace:*",
-    "captigo": "workspace:*",
+    "@captigo/core": "workspace:*",
     "vue": "^3.4.0"
   },
   "devDependencies": {

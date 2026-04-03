@@ -1,8 +1,8 @@
-import { CaptchaError } from "captigo";
-import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "captigo";
+import { CaptchaError } from "@captigo/core";
+import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "@captigo/core";
 
-import { loadV2Script } from "./script.js";
 import type { ReCaptchaV2Config } from "./config.js";
+import { loadV2Script } from "./script.js";
 
 type Pending = {
   resolve: (token: CaptchaToken) => void;
@@ -103,7 +103,10 @@ export class ReCaptchaV2Widget implements CaptchaWidget {
       this.ready
         .then(() => {
           if (this.destroyed || this.widgetId === null) return;
-          if (this.token) { this.resolveAll(this.token); return; }
+          if (this.token) {
+            this.resolveAll(this.token);
+            return;
+          }
 
           if (this.config.size === "invisible" && !this.isExecuting) {
             this.isExecuting = true;

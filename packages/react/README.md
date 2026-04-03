@@ -10,6 +10,7 @@ adapter — bring your own provider.
 ## Installation
 
 ```bash
+npm install @captigo/core
 npm install @captigo/react
 # plus your provider adapter, e.g.:
 npm install @captigo/turnstile

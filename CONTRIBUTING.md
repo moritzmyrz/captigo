@@ -32,7 +32,7 @@ pnpm install
 ```
 captigo/
 ├── packages/          # Published npm packages
-│   ├── core/          # captigo — core types and adapter interface
+│   ├── core/          # @captigo/core — types and adapter interface
 │   ├── turnstile/     # @captigo/turnstile
 │   ├── hcaptcha/      # @captigo/hcaptcha
 │   ├── recaptcha/     # @captigo/recaptcha
@@ -66,7 +66,7 @@ chore: bump deps
 
 Provider packages live under `packages/`. Each provider should:
 
-- Implement the `CaptchaAdapter` interface from `captigo`
+- Implement the `CaptchaAdapter` interface from `@captigo/core`
 - Be named `@captigo/<provider-name>`
 - Include its own `README.md` with usage examples
 - Bundle internal utilities (do not list `@captigo/shared` as a runtime dependency)

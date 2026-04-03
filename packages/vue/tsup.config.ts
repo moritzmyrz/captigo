@@ -6,5 +6,5 @@ export default defineConfig({
   dts: true,
   clean: true,
   sourcemap: true,
-  external: ["vue", "captigo"],
+  external: ["vue", "@captigo/core"],
 });

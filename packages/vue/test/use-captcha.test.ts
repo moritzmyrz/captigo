@@ -1,7 +1,6 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { defineComponent, nextTick } from "vue";
 import { mount } from "@vue/test-utils";
-import type { VueWrapper } from "@vue/test-utils";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { defineComponent, nextTick } from "vue";
 import { useCaptcha } from "../src/use-captcha.js";
 import { createMockAdapter } from "./helpers.js";
 

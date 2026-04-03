@@ -5,7 +5,7 @@ import type {
   RenderOptions,
   VerifyOptions,
   VerifyResult,
-} from "captigo";
+} from "@captigo/core";
 
 import type { TurnstileConfig } from "./config.js";
 import { verifyToken } from "./verify.js";

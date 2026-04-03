@@ -1,6 +1,6 @@
+import type { AdapterConfig, CaptchaAdapter, CaptchaError, CaptchaToken } from "@captigo/core";
 import { forwardRef, useImperativeHandle } from "react";
 import type { CSSProperties } from "react";
-import type { AdapterConfig, CaptchaAdapter, CaptchaError, CaptchaToken } from "captigo";
 import { useCaptcha } from "./use-captcha.js";
 
 // ─── Imperative handle ────────────────────────────────────────────────────────

@@ -1,5 +1,5 @@
+import { CaptchaError } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { CaptchaError } from "captigo";
 import { verifyToken } from "../src/verify.js";
 
 const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";

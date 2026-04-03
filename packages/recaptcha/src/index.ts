@@ -13,7 +13,7 @@ export type { ReCaptchaV3VerifyResult } from "./verify.js";
 export { loadV2Script as preloadV2Script, loadV3Script as preloadV3Script } from "./script.js";
 
 // ─── Core re-exports ──────────────────────────────────────────────────────────
-export { CaptchaError } from "captigo";
+export { CaptchaError } from "@captigo/core";
 export type {
   CaptchaAdapter,
   CaptchaErrorCode,
@@ -23,4 +23,4 @@ export type {
   VerifyOptions,
   VerifyResult,
   WidgetCallbacks,
-} from "captigo";
+} from "@captigo/core";

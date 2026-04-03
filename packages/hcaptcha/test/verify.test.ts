@@ -1,14 +1,20 @@
+import { CaptchaError } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { CaptchaError } from "captigo";
 import { verifyToken } from "../src/verify.js";
 
 const VERIFY_URL = "https://api.hcaptcha.com/siteverify";
 
 function mockOk(body: object) {
-  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(body) }));
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockResolvedValue({ ok: true, json: () => Promise.resolve(body) }),
+  );
 }
 function mockErr(status: number) {
-  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false, status, json: () => Promise.resolve({}) }));
+  vi.stubGlobal(
+    "fetch",
+    vi.fn().mockResolvedValue({ ok: false, status, json: () => Promise.resolve({}) }),
+  );
 }
 
 beforeEach(() => vi.clearAllMocks());

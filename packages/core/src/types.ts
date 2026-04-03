@@ -4,12 +4,7 @@
  * Well-known provider identifiers. The `(string & {})` intersection keeps the
  * type open for custom adapters while preserving autocomplete for the built-ins.
  */
-export type ProviderId =
-  | "turnstile"
-  | "hcaptcha"
-  | "recaptcha-v2"
-  | "recaptcha-v3"
-  | (string & {});
+export type ProviderId = "turnstile" | "hcaptcha" | "recaptcha-v2" | "recaptcha-v3" | (string & {});
 
 // ─── Challenge modes ──────────────────────────────────────────────────────────
 

@@ -7,8 +7,10 @@
 ## Installation
 
 ```bash
-npm install @captigo/hcaptcha
+npm install @captigo/core @captigo/hcaptcha
 ```
+
+(`@captigo/core` is also installed automatically as a dependency — listing it explicitly is optional.)
 
 ---
 

@@ -1,5 +1,11 @@
 import type { CaptchaError } from "./errors.js";
-import type { AdapterConfig, AdapterMeta, CaptchaToken, VerifyOptions, VerifyResult } from "./types.js";
+import type {
+  AdapterConfig,
+  AdapterMeta,
+  CaptchaToken,
+  VerifyOptions,
+  VerifyResult,
+} from "./types.js";
 
 // ─── Widget callbacks ─────────────────────────────────────────────────────────
 

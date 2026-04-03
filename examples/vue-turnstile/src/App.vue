@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { turnstile } from "@captigo/turnstile";
-import { Captcha } from "@captigo/vue";
 import type { CaptchaInstance, CaptchaToken } from "@captigo/vue";
+import { ref } from "vue";
 
 // ---------------------------------------------------------------------------
 // Adapters — created once at the module level so the widget is not remounted

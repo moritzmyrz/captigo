@@ -5,7 +5,7 @@ import type {
   RenderOptions,
   VerifyOptions,
   VerifyResult,
-} from "captigo";
+} from "@captigo/core";
 
 import type { ReCaptchaV3Config } from "./config.js";
 import { verifyV3Token } from "./verify.js";

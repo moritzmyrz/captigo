@@ -9,11 +9,11 @@
  *         -d '{"token":"XXXX.DUMMY.TOKEN.XXXX"}'
  */
 
-import express from "express";
-import { CaptchaError } from "captigo";
-import { verifyToken as verifyTurnstile } from "@captigo/turnstile";
+import { CaptchaError } from "@captigo/core";
 import { verifyToken as verifyHcaptcha } from "@captigo/hcaptcha";
 import { verifyV2Token, verifyV3Token } from "@captigo/recaptcha";
+import { verifyToken as verifyTurnstile } from "@captigo/turnstile";
+import express from "express";
 
 const app = express();
 app.use(express.json());

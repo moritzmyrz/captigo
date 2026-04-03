@@ -11,7 +11,7 @@ Captigo ships adapter packages for three major CAPTCHA providers. Each adapter c
 ### Installation
 
 ```bash
-pnpm add @captigo/turnstile
+pnpm add @captigo/core @captigo/turnstile
 ```
 
 ### Usage
@@ -61,7 +61,7 @@ const result = await verifyToken(submittedToken, process.env.TURNSTILE_SECRET!);
 ### Installation
 
 ```bash
-pnpm add @captigo/hcaptcha
+pnpm add @captigo/core @captigo/hcaptcha
 ```
 
 ### Usage
@@ -105,7 +105,7 @@ Google reCAPTCHA comes in two very different versions. Captigo provides separate
 ### Installation
 
 ```bash
-pnpm add @captigo/recaptcha
+pnpm add @captigo/core @captigo/recaptcha
 ```
 
 ### reCAPTCHA v2

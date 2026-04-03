@@ -1,5 +1,5 @@
+import { CaptchaError } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { CaptchaError } from "captigo";
 import type { GrecaptchaV2RenderOptions } from "../src/types.js";
 import { ReCaptchaV2Widget } from "../src/widget-v2.js";
 
@@ -27,8 +27,13 @@ const mockSdk = {
   ready: vi.fn(),
 };
 
-beforeEach(() => { vi.stubGlobal("grecaptcha", mockSdk); });
-afterEach(() => { vi.clearAllMocks(); vi.unstubAllGlobals(); });
+beforeEach(() => {
+  vi.stubGlobal("grecaptcha", mockSdk);
+});
+afterEach(() => {
+  vi.clearAllMocks();
+  vi.unstubAllGlobals();
+});
 
 describe("ReCaptchaV2Widget", () => {
   it("renders with numeric widget ID", async () => {
@@ -46,7 +51,11 @@ describe("ReCaptchaV2Widget", () => {
   });
 
   it("resolves execute() when callback fires (managed mode)", async () => {
-    const widget = new ReCaptchaV2Widget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+    const widget = new ReCaptchaV2Widget(
+      document.createElement("div"),
+      { siteKey: "k" },
+      { onSuccess: vi.fn() },
+    );
     await flush();
     const p = widget.execute();
     capturedOpts.callback("v2-tok");
@@ -54,7 +63,11 @@ describe("ReCaptchaV2Widget", () => {
   });
 
   it("calls grecaptcha.execute(widgetId) for invisible mode", async () => {
-    const widget = new ReCaptchaV2Widget(document.createElement("div"), { siteKey: "k", size: "invisible" }, { onSuccess: vi.fn() });
+    const widget = new ReCaptchaV2Widget(
+      document.createElement("div"),
+      { siteKey: "k", size: "invisible" },
+      { onSuccess: vi.fn() },
+    );
     await flush();
     widget.execute();
     await flush();
@@ -62,14 +75,22 @@ describe("ReCaptchaV2Widget", () => {
   });
 
   it("calls grecaptcha.reset() on reset()", async () => {
-    const widget = new ReCaptchaV2Widget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+    const widget = new ReCaptchaV2Widget(
+      document.createElement("div"),
+      { siteKey: "k" },
+      { onSuccess: vi.fn() },
+    );
     await flush();
     widget.reset();
     expect(mockSdk.reset).toHaveBeenCalledWith(42);
   });
 
   it("rejects pending execute() on reset()", async () => {
-    const widget = new ReCaptchaV2Widget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+    const widget = new ReCaptchaV2Widget(
+      document.createElement("div"),
+      { siteKey: "k" },
+      { onSuccess: vi.fn() },
+    );
     await flush();
     const p = widget.execute();
     widget.reset();
@@ -78,7 +99,11 @@ describe("ReCaptchaV2Widget", () => {
 
   it("fires onExpire and clears token", async () => {
     const onExpire = vi.fn();
-    const widget = new ReCaptchaV2Widget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn(), onExpire });
+    const widget = new ReCaptchaV2Widget(
+      document.createElement("div"),
+      { siteKey: "k" },
+      { onSuccess: vi.fn(), onExpire },
+    );
     await flush();
     capturedOpts.callback("tok");
     capturedOpts["expired-callback"]();
@@ -88,7 +113,11 @@ describe("ReCaptchaV2Widget", () => {
 
   it("fires onError and rejects pending", async () => {
     const onError = vi.fn();
-    const widget = new ReCaptchaV2Widget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn(), onError });
+    const widget = new ReCaptchaV2Widget(
+      document.createElement("div"),
+      { siteKey: "k" },
+      { onSuccess: vi.fn(), onError },
+    );
     await flush();
     const p = widget.execute();
     capturedOpts["error-callback"]();

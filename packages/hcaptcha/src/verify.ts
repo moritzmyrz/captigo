@@ -1,5 +1,5 @@
-import { CaptchaError } from "captigo";
-import type { VerifyOptions, VerifyResult } from "captigo";
+import { CaptchaError } from "@captigo/core";
+import type { VerifyOptions, VerifyResult } from "@captigo/core";
 import { VerifyRequestError, postVerify } from "@captigo/shared";
 import type { ProviderVerifyResponse } from "@captigo/shared";
 

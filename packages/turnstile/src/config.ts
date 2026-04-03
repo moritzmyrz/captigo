@@ -1,4 +1,4 @@
-import type { AdapterConfig } from "captigo";
+import type { AdapterConfig } from "@captigo/core";
 
 /**
  * Configuration for the Cloudflare Turnstile adapter.

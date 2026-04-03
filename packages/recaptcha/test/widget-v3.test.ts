@@ -1,5 +1,5 @@
+import { CaptchaError } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { CaptchaError } from "captigo";
 import { ReCaptchaV3Widget } from "../src/widget-v3.js";
 
 // Mock both loadV3Script and whenReady so tests don't touch the DOM.

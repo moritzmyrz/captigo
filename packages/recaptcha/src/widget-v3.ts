@@ -1,8 +1,8 @@
-import { CaptchaError } from "captigo";
-import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "captigo";
+import { CaptchaError } from "@captigo/core";
+import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "@captigo/core";
 
-import { loadV3Script, whenReady } from "./script.js";
 import type { ReCaptchaV3Config } from "./config.js";
+import { loadV3Script, whenReady } from "./script.js";
 
 /**
  * reCAPTCHA v3 "widget" — a stateless token executor.
@@ -43,10 +43,9 @@ export class ReCaptchaV3Widget implements CaptchaWidget {
     return this.ready
       .then(() => {
         // grecaptcha.execute(siteKey, { action }) is the v3 overload.
-        return (window.grecaptcha!.execute as (k: string, o: { action: string }) => Promise<string>)(
-          this.config.siteKey,
-          { action: resolvedAction },
-        );
+        return (
+          window.grecaptcha!.execute as (k: string, o: { action: string }) => Promise<string>
+        )(this.config.siteKey, { action: resolvedAction });
       })
       .then((rawToken) => {
         const token: CaptchaToken = {

@@ -9,7 +9,7 @@ export type { TurnstileConfig } from "./config.js";
 export { verifyToken } from "./verify.js";
 
 // Re-export common core types so consumers can use a single import.
-export { CaptchaError } from "captigo";
+export { CaptchaError } from "@captigo/core";
 export type {
   CaptchaAdapter,
   CaptchaErrorCode,
@@ -19,7 +19,7 @@ export type {
   VerifyOptions,
   VerifyResult,
   WidgetCallbacks,
-} from "captigo";
+} from "@captigo/core";
 
 // Script preloader — call early to start loading the SDK before widgets mount.
 export { loadScript as preloadScript } from "./script.js";

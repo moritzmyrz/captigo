@@ -24,7 +24,7 @@ Every provider has slightly different APIs, widget lifecycles, token shapes, and
 
 | Package | npm | Description |
 |---|---|---|
-| [`captigo`](./packages/core) | [![npm](https://img.shields.io/npm/v/captigo)](https://www.npmjs.com/package/captigo) | Core types and provider adapter interface |
+| [`@captigo/core`](./packages/core) | [![npm](https://img.shields.io/npm/v/@captigo/core)](https://www.npmjs.com/package/@captigo/core) | Core types and provider adapter interface |
 | [`@captigo/turnstile`](./packages/turnstile) | [![npm](https://img.shields.io/npm/v/@captigo/turnstile)](https://www.npmjs.com/package/@captigo/turnstile) | Cloudflare Turnstile adapter |
 | [`@captigo/hcaptcha`](./packages/hcaptcha) | [![npm](https://img.shields.io/npm/v/@captigo/hcaptcha)](https://www.npmjs.com/package/@captigo/hcaptcha) | hCaptcha adapter |
 | [`@captigo/recaptcha`](./packages/recaptcha) | [![npm](https://img.shields.io/npm/v/@captigo/recaptcha)](https://www.npmjs.com/package/@captigo/recaptcha) | Google reCAPTCHA v2/v3 adapter |
@@ -36,7 +36,7 @@ Every provider has slightly different APIs, widget lifecycles, token shapes, and
 ## Quick start
 
 ```bash
-pnpm add captigo @captigo/turnstile @captigo/react
+pnpm add @captigo/core @captigo/turnstile @captigo/react
 ```
 
 ```tsx
@@ -69,10 +69,10 @@ Swap `turnstile(...)` for `hcaptcha(...)` or `recaptchaV2(...)` — nothing else
 
 ## Design
 
-Every provider implements the `CaptchaAdapter` interface from `captigo`. Your application code only ever depends on the interface, not the provider:
+Every provider implements the `CaptchaAdapter` interface from `@captigo/core`. Your application code only ever depends on the interface, not the provider:
 
 ```
-captigo (core types)
+@captigo/core (types & contracts)
     ↑
     │  implements CaptchaAdapter
     ├── @captigo/turnstile

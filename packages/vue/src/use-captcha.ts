@@ -1,7 +1,7 @@
+import { CaptchaError } from "@captigo/core";
+import type { AdapterConfig, CaptchaAdapter, CaptchaToken, CaptchaWidget } from "@captigo/core";
 import { ref, shallowRef, toValue, watchEffect } from "vue";
 import type { MaybeRefOrGetter, Ref } from "vue";
-import { CaptchaError } from "captigo";
-import type { AdapterConfig, CaptchaAdapter, CaptchaToken, CaptchaWidget } from "captigo";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -117,7 +117,7 @@ export function useCaptcha<TConfig extends AdapterConfig = AdapterConfig>(
         new CaptchaError(
           "execute-failed",
           "@captigo/vue: widget is not mounted. Make sure containerRef is attached to a DOM element.",
-          "captigo",
+          "@captigo/core",
         ),
       );
     }

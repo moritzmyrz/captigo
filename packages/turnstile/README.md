@@ -11,10 +11,12 @@ captigo ecosystem uses.
 ## Installation
 
 ```bash
-npm install @captigo/turnstile
+npm install @captigo/core @captigo/turnstile
 # or
-pnpm add @captigo/turnstile
+pnpm add @captigo/core @captigo/turnstile
 ```
+
+(`@captigo/core` is also installed automatically as a dependency of `@captigo/turnstile` — listing it explicitly is optional but keeps imports predictable.)
 
 ---
 

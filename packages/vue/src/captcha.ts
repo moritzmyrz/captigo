@@ -1,6 +1,6 @@
+import type { AdapterConfig, CaptchaAdapter, CaptchaError, CaptchaToken } from "@captigo/core";
 import { defineComponent, h } from "vue";
 import type { PropType } from "vue";
-import type { AdapterConfig, CaptchaAdapter, CaptchaError, CaptchaToken } from "captigo";
 import { useCaptcha } from "./use-captcha.js";
 
 // ─── Exposed instance type ────────────────────────────────────────────────────
@@ -88,17 +88,14 @@ export const Captcha = defineComponent({
     // Pass adapter as a getter so Vue's reactivity tracks prop.adapter changes.
     // If the adapter prop is swapped out, the old widget is destroyed and a
     // new one is created automatically by useCaptcha's watchEffect.
-    const { containerRef, token, execute, reset } = useCaptcha(
-      () => props.adapter,
-      {
-        // These arrow functions always call the latest prop value. Since props
-        // is reactive and we access it at call time (not at setup time), there
-        // is no stale-closure issue — no equivalent of React's callbacksRef needed.
-        onSuccess: (t) => props.onSuccess?.(t),
-        onError: (err) => props.onError?.(err),
-        onExpire: () => props.onExpire?.(),
-      },
-    );
+    const { containerRef, token, execute, reset } = useCaptcha(() => props.adapter, {
+      // These arrow functions always call the latest prop value. Since props
+      // is reactive and we access it at call time (not at setup time), there
+      // is no stale-closure issue — no equivalent of React's callbacksRef needed.
+      onSuccess: (t) => props.onSuccess?.(t),
+      onError: (err) => props.onError?.(err),
+      onExpire: () => props.onExpire?.(),
+    });
 
     expose({
       execute,

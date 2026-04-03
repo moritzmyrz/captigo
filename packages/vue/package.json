@@ -22,7 +22,7 @@
     "clean": "rm -rf dist tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "captigo": "workspace:*"
+    "@captigo/core": "workspace:*"
   },
   "peerDependencies": {
     "vue": ">=3.3.0"

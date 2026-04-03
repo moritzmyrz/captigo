@@ -91,7 +91,7 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      # Tests import workspace packages by name (e.g. "captigo") which resolve
+      # Tests import workspace packages by name (e.g. "@captigo/core") which resolve
       # to dist/. Build first so those imports resolve correctly.
       - name: Build packages
         run: pnpm build

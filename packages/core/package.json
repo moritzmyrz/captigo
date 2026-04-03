@@ -1,5 +1,5 @@
 {
-  "name": "captigo",
+  "name": "@captigo/core",
   "version": "0.0.0",
   "description": "Provider-agnostic CAPTCHA integration for the modern web",
   "type": "module",
@@ -25,7 +25,17 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "hcaptcha", "recaptcha", "turnstile", "cloudflare", "security", "typescript", "provider-agnostic"],
+  "keywords": [
+    "captigo",
+    "captcha",
+    "hcaptcha",
+    "recaptcha",
+    "turnstile",
+    "cloudflare",
+    "security",
+    "typescript",
+    "provider-agnostic"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/core#readme",
   "repository": {

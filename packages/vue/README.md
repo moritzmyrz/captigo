@@ -9,7 +9,7 @@ Swap providers without changing your component tree. Works with `@captigo/turnst
 ## Installation
 
 ```bash
-pnpm add @captigo/vue @captigo/turnstile
+pnpm add @captigo/core @captigo/vue @captigo/turnstile
 ```
 
 ---

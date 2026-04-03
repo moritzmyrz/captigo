@@ -1,5 +1,5 @@
+import { CaptchaError } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { CaptchaError } from "captigo";
 import type { TurnstileRenderOptions } from "../src/types.js";
 import { TurnstileWidget } from "../src/widget.js";
 
@@ -50,7 +50,11 @@ describe("TurnstileWidget", () => {
   describe("mount", () => {
     it("calls sdk.render with the correct sitekey and options", async () => {
       const container = document.createElement("div");
-      new TurnstileWidget(container, { siteKey: "test-key", theme: "dark" }, { onSuccess: vi.fn() });
+      new TurnstileWidget(
+        container,
+        { siteKey: "test-key", theme: "dark" },
+        { onSuccess: vi.fn() },
+      );
 
       await flush();
 

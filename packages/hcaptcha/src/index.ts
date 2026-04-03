@@ -12,7 +12,7 @@ export { verifyToken } from "./verify.js";
 export { loadScript as preloadScript } from "./script.js";
 
 // Re-export common core types so consumers can use a single import.
-export { CaptchaError } from "captigo";
+export { CaptchaError } from "@captigo/core";
 export type {
   CaptchaAdapter,
   CaptchaErrorCode,
@@ -22,4 +22,4 @@ export type {
   VerifyOptions,
   VerifyResult,
   WidgetCallbacks,
-} from "captigo";
+} from "@captigo/core";

@@ -24,13 +24,13 @@ Install the core package, one provider adapter, and (optionally) a framework int
 
 ```bash
 # Cloudflare Turnstile + React
-pnpm add captigo @captigo/turnstile @captigo/react
+pnpm add @captigo/core @captigo/turnstile @captigo/react
 
 # hCaptcha + Vue 3
-pnpm add captigo @captigo/hcaptcha @captigo/vue
+pnpm add @captigo/core @captigo/hcaptcha @captigo/vue
 
 # reCAPTCHA v2 (no framework)
-pnpm add captigo @captigo/recaptcha
+pnpm add @captigo/core @captigo/recaptcha
 ```
 
 ---

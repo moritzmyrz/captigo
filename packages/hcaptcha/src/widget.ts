@@ -1,8 +1,8 @@
-import { CaptchaError } from "captigo";
-import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "captigo";
+import { CaptchaError } from "@captigo/core";
+import type { CaptchaToken, CaptchaWidget, WidgetCallbacks } from "@captigo/core";
 
-import { loadScript } from "./script.js";
 import type { HCaptchaConfig } from "./config.js";
+import { loadScript } from "./script.js";
 
 type Pending = {
   resolve: (token: CaptchaToken) => void;
@@ -77,11 +77,7 @@ export class HCaptchaWidget implements CaptchaWidget {
       },
 
       "error-callback": (errCode) => {
-        const error = new CaptchaError(
-          "provider-error",
-          `hCaptcha error: ${errCode}`,
-          "hcaptcha",
-        );
+        const error = new CaptchaError("provider-error", `hCaptcha error: ${errCode}`, "hcaptcha");
         this.isExecuting = false;
         this.callbacks.onError?.(error);
         this.rejectAll(error);
@@ -119,7 +115,10 @@ export class HCaptchaWidget implements CaptchaWidget {
       this.ready
         .then(() => {
           if (this.destroyed || !this.widgetId) return;
-          if (this.token) { this.resolveAll(this.token); return; }
+          if (this.token) {
+            this.resolveAll(this.token);
+            return;
+          }
 
           if (this.config.size === "invisible" && !this.isExecuting) {
             this.isExecuting = true;

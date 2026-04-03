@@ -9,7 +9,7 @@ export type { UseCaptchaOptions, UseCaptchaReturn } from "./use-captcha.js";
 // ─── Core re-exports ──────────────────────────────────────────────────────────
 // Consumers should be able to work with a single import from @captigo/react.
 
-export { CaptchaError } from "captigo";
+export { CaptchaError } from "@captigo/core";
 export type {
   AdapterConfig,
   AdapterMeta,
@@ -21,4 +21,4 @@ export type {
   VerifyOptions,
   VerifyResult,
   WidgetCallbacks,
-} from "captigo";
+} from "@captigo/core";

@@ -5,7 +5,7 @@ import type {
   RenderOptions,
   VerifyOptions,
   VerifyResult,
-} from "captigo";
+} from "@captigo/core";
 
 import type { ReCaptchaV2Config } from "./config.js";
 import { verifyV2Token } from "./verify.js";
@@ -28,11 +28,7 @@ class ReCaptchaV2Adapter implements CaptchaAdapter<ReCaptchaV2Config> {
     return new ReCaptchaV2Widget(container, this.config, options.callbacks);
   }
 
-  verify(
-    token: string,
-    secretKey: string,
-    options?: VerifyOptions,
-  ): Promise<VerifyResult> {
+  verify(token: string, secretKey: string, options?: VerifyOptions): Promise<VerifyResult> {
     return verifyV2Token(token, secretKey, options);
   }
 }
@@ -51,8 +47,6 @@ class ReCaptchaV2Adapter implements CaptchaAdapter<ReCaptchaV2Config> {
  * const token = await widget.execute();
  * ```
  */
-export function recaptchaV2(
-  config: ReCaptchaV2Config,
-): CaptchaAdapter<ReCaptchaV2Config> {
+export function recaptchaV2(config: ReCaptchaV2Config): CaptchaAdapter<ReCaptchaV2Config> {
   return new ReCaptchaV2Adapter(config);
 }

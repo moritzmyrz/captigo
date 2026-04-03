@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
-import { turnstile } from "@captigo/turnstile";
 import { Captcha } from "@captigo/react";
 import type { CaptchaHandle, CaptchaToken } from "@captigo/react";
+import { turnstile } from "@captigo/turnstile";
+import { useRef, useState } from "react";
 
 // ---------------------------------------------------------------------------
 // Adapters — created once outside the component so the widget isn't remounted
@@ -10,15 +10,13 @@ import type { CaptchaHandle, CaptchaToken } from "@captigo/react";
 
 // Managed: renders a visible checkbox; challenge fires automatically.
 const managedAdapter = turnstile({
-  siteKey:
-    import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA", // test key
+  siteKey: import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA", // test key
   theme: "auto",
 });
 
 // Interactive (invisible): no visible widget; execute() must be called explicitly.
 const invisibleAdapter = turnstile({
-  siteKey:
-    import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA",
+  siteKey: import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "1x00000000000000000000AA",
   execution: "execute",
 });
 
@@ -32,9 +30,7 @@ function ManagedExample() {
 
   const handleSuccess = (t: CaptchaToken) => {
     setToken(t);
-    setStatus(
-      `Token received (${t.value.slice(0, 12)}…). Would send to server here.`
-    );
+    setStatus(`Token received (${t.value.slice(0, 12)}…). Would send to server here.`);
   };
 
   const handleExpire = () => {
@@ -45,10 +41,7 @@ function ManagedExample() {
   return (
     <section>
       <h2>Managed widget (visible checkbox)</h2>
-      <p>
-        The challenge fires automatically when the user interacts with the
-        widget.
-      </p>
+      <p>The challenge fires automatically when the user interacts with the widget.</p>
 
       <Captcha
         adapter={managedAdapter}
@@ -82,21 +75,14 @@ function ManagedExample() {
 
 function InvisibleExample() {
   const captchaRef = useRef<CaptchaHandle>(null);
-  const [status, setStatus] = useState<string>(
-    "Click 'Submit' to trigger the challenge."
-  );
+  const [status, setStatus] = useState<string>("Click 'Submit' to trigger the challenge.");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("Triggering challenge…");
     try {
       const token = await captchaRef.current!.execute("example-submit");
-      setStatus(
-        `Token received (${token.value.slice(
-          0,
-          12
-        )}…). Would send to server here.`
-      );
+      setStatus(`Token received (${token.value.slice(0, 12)}…). Would send to server here.`);
     } catch {
       setStatus("Challenge failed or was cancelled.");
     }
@@ -105,10 +91,7 @@ function InvisibleExample() {
   return (
     <section>
       <h2>Invisible widget (execute on submit)</h2>
-      <p>
-        No visible widget is rendered. The challenge fires when you click
-        Submit.
-      </p>
+      <p>No visible widget is rendered. The challenge fires when you click Submit.</p>
 
       <form onSubmit={handleSubmit}>
         {/* The Captcha component renders an empty container — attach it anywhere */}
@@ -143,8 +126,8 @@ export function App() {
         <a href="https://developers.cloudflare.com/turnstile/reference/testing/">
           Turnstile test site key
         </a>{" "}
-        which always passes. Set <code>VITE_TURNSTILE_SITE_KEY</code> in{" "}
-        <code>.env.local</code> to use a real key.
+        which always passes. Set <code>VITE_TURNSTILE_SITE_KEY</code> in <code>.env.local</code> to
+        use a real key.
       </p>
 
       <ManagedExample />

@@ -1,7 +1,7 @@
+import { CaptchaError } from "@captigo/core";
+import type { AdapterConfig, CaptchaAdapter, CaptchaToken, CaptchaWidget } from "@captigo/core";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { RefObject } from "react";
-import { CaptchaError } from "captigo";
-import type { AdapterConfig, CaptchaAdapter, CaptchaToken, CaptchaWidget } from "captigo";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -124,7 +124,7 @@ export function useCaptcha<TConfig extends AdapterConfig = AdapterConfig>(
         new CaptchaError(
           "execute-failed",
           "@captigo/react: widget is not mounted. Make sure the container ref is attached to a DOM element.",
-          "captigo",
+          "@captigo/core",
         ),
       );
     }

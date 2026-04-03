@@ -1,6 +1,6 @@
+import { CaptchaError } from "@captigo/core";
+import type { CaptchaAdapter, CaptchaToken, CaptchaWidget, WidgetCallbacks } from "@captigo/core";
 import { vi } from "vitest";
-import { CaptchaError } from "captigo";
-import type { CaptchaAdapter, CaptchaToken, CaptchaWidget, WidgetCallbacks } from "captigo";
 
 // ─── Shared test fixtures ─────────────────────────────────────────────────────
 
@@ -21,9 +21,11 @@ export function createMockAdapter() {
   let lastRender: CapturedRender | null = null;
 
   const mockWidget: MockWidget = {
-    execute: vi.fn<[string?], Promise<CaptchaToken>>().mockImplementation(() =>
-      Promise.resolve({ value: "test-token", provider: "turnstile", issuedAt: Date.now() }),
-    ),
+    execute: vi
+      .fn<[string?], Promise<CaptchaToken>>()
+      .mockImplementation(() =>
+        Promise.resolve({ value: "test-token", provider: "turnstile", issuedAt: Date.now() }),
+      ),
     reset: vi.fn<[], void>(),
     destroy: vi.fn<[], void>(),
     getToken: vi.fn<[], CaptchaToken | null>().mockReturnValue(null),
@@ -32,12 +34,12 @@ export function createMockAdapter() {
   const mockAdapter = {
     meta: { id: "mock", mode: "managed" as const, requiresContainer: true },
     config: { siteKey: "test-key" },
-    render: vi.fn<[HTMLElement, { callbacks: WidgetCallbacks }], CaptchaWidget>().mockImplementation(
-      (container, options) => {
+    render: vi
+      .fn<[HTMLElement, { callbacks: WidgetCallbacks }], CaptchaWidget>()
+      .mockImplementation((container, options) => {
         lastRender = { container, callbacks: options.callbacks };
         return mockWidget as unknown as CaptchaWidget;
-      },
-    ),
+      }),
     verify: vi.fn(),
   } satisfies CaptchaAdapter;
 

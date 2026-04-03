@@ -1,4 +1,4 @@
-import { CaptchaError } from "captigo";
+import { CaptchaError } from "@captigo/core";
 
 const SCRIPT_URL = "https://js.hcaptcha.com/1/api.js?render=explicit";
 

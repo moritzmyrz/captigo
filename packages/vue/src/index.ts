@@ -5,7 +5,7 @@ export { useCaptcha } from "./use-captcha.js";
 export type { UseCaptchaOptions, UseCaptchaReturn } from "./use-captcha.js";
 
 // Re-export core types for single-import convenience.
-export { CaptchaError } from "captigo";
+export { CaptchaError } from "@captigo/core";
 export type {
   AdapterConfig,
   AdapterMeta,
@@ -17,4 +17,4 @@ export type {
   VerifyOptions,
   VerifyResult,
   WidgetCallbacks,
-} from "captigo";
+} from "@captigo/core";

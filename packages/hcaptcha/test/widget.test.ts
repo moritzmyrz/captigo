@@ -1,5 +1,5 @@
+import { CaptchaError } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { CaptchaError } from "captigo";
 import type { HCaptchaRenderOptions } from "../src/types.js";
 import { HCaptchaWidget } from "../src/widget.js";
 
@@ -26,22 +26,38 @@ const mockSdk = {
   getResponse: vi.fn(),
 };
 
-beforeEach(() => { vi.stubGlobal("hcaptcha", mockSdk); });
-afterEach(() => { vi.clearAllMocks(); vi.unstubAllGlobals(); });
+beforeEach(() => {
+  vi.stubGlobal("hcaptcha", mockSdk);
+});
+afterEach(() => {
+  vi.clearAllMocks();
+  vi.unstubAllGlobals();
+});
 
 describe("HCaptchaWidget", () => {
   describe("mount", () => {
     it("calls hcaptcha.render with sitekey and options", async () => {
       const c = document.createElement("div");
-      new HCaptchaWidget(c, { siteKey: "sk", theme: "dark", size: "compact" }, { onSuccess: vi.fn() });
+      new HCaptchaWidget(
+        c,
+        { siteKey: "sk", theme: "dark", size: "compact" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
-      expect(mockSdk.render).toHaveBeenCalledWith(c, expect.objectContaining({ sitekey: "sk", theme: "dark", size: "compact" }));
+      expect(mockSdk.render).toHaveBeenCalledWith(
+        c,
+        expect.objectContaining({ sitekey: "sk", theme: "dark", size: "compact" }),
+      );
     });
   });
 
   describe("execute() — managed (normal)", () => {
     it("resolves when callback fires", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       const promise = widget.execute();
       capturedOpts.callback("tok-h");
@@ -49,7 +65,11 @@ describe("HCaptchaWidget", () => {
     });
 
     it("resolves immediately if token already exists", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       capturedOpts.callback("cached");
       await expect(widget.execute()).resolves.toMatchObject({ value: "cached" });
@@ -57,7 +77,11 @@ describe("HCaptchaWidget", () => {
     });
 
     it("does not call hcaptcha.execute() in managed mode", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       widget.execute();
       await flush();
@@ -67,7 +91,11 @@ describe("HCaptchaWidget", () => {
 
   describe("execute() — invisible", () => {
     it("calls hcaptcha.execute() to trigger the challenge", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k", size: "invisible" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k", size: "invisible" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       widget.execute();
       await flush();
@@ -75,7 +103,11 @@ describe("HCaptchaWidget", () => {
     });
 
     it("does not call hcaptcha.execute() twice for concurrent calls", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k", size: "invisible" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k", size: "invisible" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       widget.execute();
       widget.execute();
@@ -84,7 +116,11 @@ describe("HCaptchaWidget", () => {
     });
 
     it("rejects pending calls when chalexpired-callback fires", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k", size: "invisible" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k", size: "invisible" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       const promise = widget.execute();
       await flush();
@@ -95,7 +131,11 @@ describe("HCaptchaWidget", () => {
 
   describe("reset()", () => {
     it("calls hcaptcha.reset() and clears token", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       capturedOpts.callback("tok");
       widget.reset();
@@ -104,7 +144,11 @@ describe("HCaptchaWidget", () => {
     });
 
     it("rejects pending execute() calls", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       const p = widget.execute();
       widget.reset();
@@ -114,14 +158,22 @@ describe("HCaptchaWidget", () => {
 
   describe("destroy()", () => {
     it("calls hcaptcha.remove()", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       widget.destroy();
       expect(mockSdk.remove).toHaveBeenCalledWith("widget-h-001");
     });
 
     it("rejects execute() after destroy", async () => {
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn() });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
       await flush();
       widget.destroy();
       await expect(widget.execute()).rejects.toMatchObject({ code: "execute-failed" });
@@ -131,16 +183,26 @@ describe("HCaptchaWidget", () => {
   describe("callbacks", () => {
     it("fires onSuccess and updates getToken()", async () => {
       const onSuccess = vi.fn();
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess },
+      );
       await flush();
       capturedOpts.callback("t");
-      expect(onSuccess).toHaveBeenCalledWith(expect.objectContaining({ value: "t", provider: "hcaptcha" }));
+      expect(onSuccess).toHaveBeenCalledWith(
+        expect.objectContaining({ value: "t", provider: "hcaptcha" }),
+      );
       expect(widget.getToken()?.value).toBe("t");
     });
 
     it("fires onExpire and clears token", async () => {
       const onExpire = vi.fn();
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn(), onExpire });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn(), onExpire },
+      );
       await flush();
       capturedOpts.callback("t");
       capturedOpts["expired-callback"]();
@@ -150,7 +212,11 @@ describe("HCaptchaWidget", () => {
 
     it("fires onError and rejects pending calls", async () => {
       const onError = vi.fn();
-      const widget = new HCaptchaWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess: vi.fn(), onError });
+      const widget = new HCaptchaWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn(), onError },
+      );
       await flush();
       const p = widget.execute();
       capturedOpts["error-callback"]("rate-limited");
