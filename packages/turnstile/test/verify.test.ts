@@ -57,6 +57,16 @@ describe("verifyToken()", () => {
       expect(body.get("response")).toBe("my-token");
     });
 
+    it("sends Content-Type: application/x-www-form-urlencoded", async () => {
+      mockFetchOk({ success: true });
+      await verifyToken("tok", "secret");
+
+      const [, init] = (fetch as ReturnType<typeof vi.fn>).mock.calls[0] as [string, RequestInit];
+      expect((init.headers as Record<string, string>)["Content-Type"]).toBe(
+        "application/x-www-form-urlencoded",
+      );
+    });
+
     it("includes remoteip when provided", async () => {
       mockFetchOk({ success: true });
       await verifyToken("tok", "secret", { remoteip: "1.2.3.4" });
@@ -113,6 +123,27 @@ describe("verifyToken()", () => {
       const result = await verifyToken("tok", "secret");
 
       expect(result.score).toBeUndefined();
+    });
+
+    it("omits challengeTs when not in the response", async () => {
+      mockFetchOk({ success: true });
+      const result = await verifyToken("tok", "secret");
+
+      expect(result.challengeTs).toBeUndefined();
+    });
+
+    it("omits hostname when not in the response", async () => {
+      mockFetchOk({ success: true });
+      const result = await verifyToken("tok", "secret");
+
+      expect(result.hostname).toBeUndefined();
+    });
+
+    it("omits errorCodes when not in the response", async () => {
+      mockFetchOk({ success: true });
+      const result = await verifyToken("tok", "secret");
+
+      expect(result.errorCodes).toBeUndefined();
     });
   });
 
