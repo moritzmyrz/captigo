@@ -1,7 +1,7 @@
 {
   "name": "@captigo/turnstile",
   "version": "0.1.0",
-  "description": "Cloudflare Turnstile adapter for captigo",
+  "description": "Cloudflare Turnstile adapter for Captigo — client widget and server-side verification",
   "type": "module",
   "exports": {
     ".": {
@@ -35,7 +35,15 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "turnstile", "cloudflare", "security", "typescript", "captigo"],
+  "keywords": [
+    "bot-management",
+    "captigo",
+    "captcha",
+    "cloudflare",
+    "security",
+    "turnstile",
+    "typescript"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/turnstile#readme",
   "repository": {

@@ -1,7 +1,7 @@
 {
   "name": "@captigo/core",
   "version": "0.1.0",
-  "description": "Provider-agnostic CAPTCHA integration for the modern web",
+  "description": "Core types and CaptchaAdapter contracts for Captigo — provider-agnostic CAPTCHA integration",
   "type": "module",
   "exports": {
     ".": {
@@ -26,15 +26,17 @@
     "node": ">=20.0.0"
   },
   "keywords": [
+    "adapter",
+    "bot-protection",
     "captigo",
     "captcha",
-    "hcaptcha",
-    "recaptcha",
-    "turnstile",
     "cloudflare",
+    "hcaptcha",
+    "provider-agnostic",
+    "recaptcha",
     "security",
-    "typescript",
-    "provider-agnostic"
+    "turnstile",
+    "typescript"
   ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/core#readme",

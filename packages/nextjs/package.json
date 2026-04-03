@@ -1,7 +1,7 @@
 {
   "name": "@captigo/nextjs",
   "version": "0.1.0",
-  "description": "Next.js helpers for captigo — token extraction, IP forwarding, and route handler verification",
+  "description": "Next.js App Router helpers for Captigo — request parsing, client IP, and route-handler verification",
   "type": "module",
   "exports": {
     ".": {
@@ -42,14 +42,16 @@
     "node": ">=20.0.0"
   },
   "keywords": [
-    "captigo",
-    "captcha",
-    "nextjs",
-    "next",
     "app-router",
-    "turnstile",
+    "captcha",
+    "captigo",
     "hcaptcha",
+    "next",
+    "nextjs",
+    "recaptcha",
+    "route-handler",
     "security",
+    "turnstile",
     "typescript"
   ],
   "license": "MIT",

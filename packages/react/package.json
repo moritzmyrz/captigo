@@ -1,7 +1,7 @@
 {
   "name": "@captigo/react",
   "version": "0.1.0",
-  "description": "React hooks and components for captigo",
+  "description": "React 18+ components and hooks for Captigo — works with any CAPTCHA adapter",
   "type": "module",
   "exports": {
     ".": {
@@ -43,7 +43,17 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "react", "hooks", "components", "security", "typescript", "captigo"],
+  "keywords": [
+    "captcha",
+    "captigo",
+    "hcaptcha",
+    "react",
+    "react-hooks",
+    "recaptcha",
+    "security",
+    "turnstile",
+    "typescript"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/react#readme",
   "repository": {

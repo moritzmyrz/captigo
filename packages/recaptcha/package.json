@@ -1,7 +1,7 @@
 {
   "name": "@captigo/recaptcha",
   "version": "0.1.0",
-  "description": "Google reCAPTCHA v2/v3 adapter for captigo",
+  "description": "Google reCAPTCHA v2 and v3 adapters for Captigo — client widgets and server verification",
   "type": "module",
   "exports": {
     ".": {
@@ -35,7 +35,15 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "recaptcha", "google", "security", "typescript", "captigo"],
+  "keywords": [
+    "captcha",
+    "captigo",
+    "google-recaptcha",
+    "recaptcha",
+    "recaptcha-v3",
+    "security",
+    "typescript"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/recaptcha#readme",
   "repository": {

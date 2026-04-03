@@ -1,7 +1,7 @@
 {
   "name": "@captigo/vue",
   "version": "0.1.0",
-  "description": "Vue 3 composables and components for captigo",
+  "description": "Vue 3 components and composables for Captigo — works with any CAPTCHA adapter",
   "type": "module",
   "exports": {
     ".": {
@@ -39,7 +39,18 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "vue", "vue3", "composables", "security", "typescript", "captigo"],
+  "keywords": [
+    "captcha",
+    "captigo",
+    "composition-api",
+    "hcaptcha",
+    "recaptcha",
+    "security",
+    "turnstile",
+    "typescript",
+    "vue",
+    "vue3"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/vue#readme",
   "repository": {
