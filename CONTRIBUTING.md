@@ -38,6 +38,7 @@ captigo/
 │   ├── recaptcha/     # @captigo/recaptcha
 │   ├── react/         # @captigo/react
 │   ├── vue/           # @captigo/vue
+│   ├── nextjs/        # @captigo/nextjs — App Router / Request helpers
 │   └── shared/        # @captigo/shared — internal utilities (not published)
 ├── examples/          # Runnable example applications
 └── docs/              # Documentation guides

@@ -1,6 +1,6 @@
 # Examples
 
-Small, runnable apps that mirror how captigo is meant to be used: stable adapters, real form flows, and server verification where it matters.
+Small, runnable apps that mirror how Captigo is meant to be used: stable adapters, real form flows, and server verification where it matters.
 
 ## Index
 
