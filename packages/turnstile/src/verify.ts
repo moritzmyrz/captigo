@@ -6,6 +6,7 @@ import type { ProviderVerifyResponse } from "@captigo/shared";
 // ─── Response shape ───────────────────────────────────────────────────────────
 
 interface TurnstileVerifyResponse extends ProviderVerifyResponse {
+  score?: number;
   action?: string;
   cdata?: string;
 }
@@ -53,6 +54,7 @@ export async function verifyToken(
     const result: VerifyResult = { success: data.success, provider: "turnstile" };
     if (data.challenge_ts !== undefined) result.challengeTs = data.challenge_ts;
     if (data.hostname !== undefined) result.hostname = data.hostname;
+    if (data.score !== undefined) result.score = data.score;
     if (data["error-codes"] !== undefined) result.errorCodes = data["error-codes"];
     return result;
   } catch (err) {
