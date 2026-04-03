@@ -113,18 +113,26 @@ This document expands on the compatibility matrix in the root README. It covers 
 
 Both `@captigo/react` and `@captigo/vue` work identically with all provider adapters. The framework packages do not know which provider is underneath.
 
-| Framework package | React version | Vue version | Strict Mode |
-|---|---|---|---|
-| `@captigo/react` | ≥ 18.0 | — | ✅ compatible |
-| `@captigo/vue` | — | ≥ 3.0 | ✅ compatible |
+| Framework package | React version | Vue version | Next.js version | Strict Mode |
+|---|---|---|---|---|
+| `@captigo/react` | ≥ 18.0 | — | — | ✅ compatible |
+| `@captigo/vue` | — | ≥ 3.0 | — | ✅ compatible |
+| `@captigo/nextjs` | — | — | ≥ 14.0 (App Router) | ✅ compatible |
 
-**Planned framework integrations:** `@captigo/nextjs`, `@captigo/sveltekit` — not yet implemented.
+`@captigo/nextjs` provides server-side utilities for Next.js route handlers and Server Actions:
+
+- `verifyCaptchaFromRequest(request, adapter, secretKey, options?)` — one-call route handler verification
+- `captchaTokenFromRequest(request, fieldName?)` — extract token from JSON or FormData bodies
+- `clientIpFromRequest(request)` — resolve client IP from CF/proxy/nginx headers
+
+It has no runtime dependency on `next` itself — the helpers use the standard Web `Request` API.
+
+**Planned framework integrations:** `@captigo/sveltekit` — not yet implemented.
 
 ---
 
 ## What is not yet implemented
 
-- `@captigo/nextjs` — Next.js-specific helpers (Server Actions, App Router patterns)
 - `@captigo/sveltekit` — SvelteKit form action integration
 - hCaptcha enterprise score — the `score` field in hCaptcha's enterprise verify response is not currently mapped to `VerifyResult.score`
 - Idempotency key support for Turnstile's `siteverify` endpoint

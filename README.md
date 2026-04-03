@@ -30,7 +30,7 @@ Every provider has slightly different APIs, widget lifecycles, token shapes, and
 | [`@captigo/recaptcha`](./packages/recaptcha) | [![npm](https://img.shields.io/npm/v/@captigo/recaptcha)](https://www.npmjs.com/package/@captigo/recaptcha) | Google reCAPTCHA v2/v3 adapter |
 | [`@captigo/react`](./packages/react) | [![npm](https://img.shields.io/npm/v/@captigo/react)](https://www.npmjs.com/package/@captigo/react) | React hooks and components |
 | [`@captigo/vue`](./packages/vue) | [![npm](https://img.shields.io/npm/v/@captigo/vue)](https://www.npmjs.com/package/@captigo/vue) | Vue 3 composables and components |
-| `@captigo/nextjs` | — | Next.js integration *(planned)* |
+| [`@captigo/nextjs`](./packages/nextjs) | [![npm](https://img.shields.io/npm/v/@captigo/nextjs)](https://www.npmjs.com/package/@captigo/nextjs) | Next.js helpers — token extraction, IP forwarding, route handler verification |
 | `@captigo/sveltekit` | — | SvelteKit integration *(planned)* |
 
 ## Compatibility
@@ -111,7 +111,8 @@ Every provider implements the `CaptchaAdapter` interface from `@captigo/core`. Y
 
     ↑  consumes CaptchaAdapter
     ├── @captigo/react
-    └── @captigo/vue
+    ├── @captigo/vue
+    └── @captigo/nextjs  (server-side route handler helpers)
 ```
 
 Configuring a different provider is a one-line change at the call site. Framework integration code is unchanged.
