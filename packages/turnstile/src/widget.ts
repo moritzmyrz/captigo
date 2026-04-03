@@ -36,6 +36,22 @@ export class TurnstileWidget implements CaptchaWidget {
     private readonly callbacks: WidgetCallbacks,
   ) {
     this.ready = this.mount();
+
+    // Notify via onError as soon as mount fails so managed-mode consumers
+    // (who never call execute()) still receive the signal. The execute() path
+    // also chains on this.ready, but only calls rejectAll — not onError again.
+    this.ready.catch((err: unknown) => {
+      if (this.destroyed) return;
+      const error =
+        err instanceof CaptchaError
+          ? err
+          : new CaptchaError(
+              "script-load-failed",
+              err instanceof Error ? err.message : String(err),
+              "turnstile",
+            );
+      this.callbacks.onError?.(error);
+    });
   }
 
   // ─── Private ────────────────────────────────────────────────────────────────
@@ -164,6 +180,7 @@ export class TurnstileWidget implements CaptchaWidget {
         })
         .catch((err: unknown) => {
           // Re-use the error if it already came from captigo (e.g. loadScript()).
+          // onError is handled by the constructor catch — only reject pending promises here.
           const error =
             err instanceof CaptchaError
               ? err
@@ -173,7 +190,6 @@ export class TurnstileWidget implements CaptchaWidget {
                   "turnstile",
                 );
           this.rejectAll(error);
-          this.callbacks.onError?.(error);
         });
     });
   }
