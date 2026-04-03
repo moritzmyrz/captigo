@@ -5,7 +5,7 @@
   "description": "Provider-agnostic CAPTCHA library ecosystem for the modern web",
   "type": "module",
   "scripts": {
-    "build": "pnpm -r run build",
+    "build": "pnpm --filter captigo --filter @captigo/shared run build && pnpm -r run build",
     "typecheck": "pnpm -r run typecheck",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",

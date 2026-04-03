@@ -1,14 +1,16 @@
 import type { AdapterConfig, CaptchaAdapter, CaptchaToken } from "captigo";
 
-// Re-export the types consumers are most likely to need from a single import.
+// Re-export core types and the error class for single-import convenience.
+// Note: CaptchaWidget (the widget handle interface) is intentionally not
+// re-exported here to avoid a name clash with the React component below.
+export { CaptchaError } from "captigo";
 export type {
   AdapterConfig,
   AdapterMeta,
   CaptchaAdapter,
-  CaptchaError,
+  CaptchaErrorCode,
   CaptchaMode,
   CaptchaToken,
-  CaptchaWidget,
   VerifyResult,
   WidgetCallbacks,
 } from "captigo";
@@ -32,7 +34,7 @@ export interface UseCaptchaReturn {
   isReady: boolean;
   /**
    * Trigger the challenge. For interactive/passive modes, call this on submit.
-   * For managed mode, this resolves immediately with the current token if one
+   * For managed mode, resolves immediately with the current token if one
    * exists, or waits for the next solve.
    */
   execute: (action?: string) => Promise<CaptchaToken>;
@@ -44,7 +46,8 @@ export interface UseCaptchaReturn {
  * Hook for managing a CAPTCHA widget inside a React component.
  *
  * Provide a `ref` to the container element for managed/interactive adapters.
- * For passive adapters, `containerRef` may be omitted.
+ * For passive adapters (`meta.requiresContainer === false`), `containerRef`
+ * may be omitted.
  *
  * @example
  * ```tsx
@@ -82,11 +85,8 @@ export interface CaptchaWidgetProps<TConfig extends AdapterConfig> {
 }
 
 /**
- * Drop-in component that renders the appropriate CAPTCHA widget for the given
- * adapter and forwards lifecycle events via props.
- *
- * For interactive/passive adapters, expose a `ref` on the component to access
- * `execute()` imperatively (full ref API coming in implementation).
+ * Drop-in React component that renders the appropriate CAPTCHA widget for
+ * the given adapter and forwards lifecycle events via props.
  *
  * @example
  * ```tsx

@@ -1,14 +1,16 @@
 import type { AdapterConfig, CaptchaAdapter, CaptchaToken } from "captigo";
 
-// Re-export the types consumers are most likely to need from a single import.
+// Re-export core types and the error class for single-import convenience.
+// Note: CaptchaWidget (the widget handle interface) is intentionally not
+// re-exported here to avoid a name clash with the Vue component below.
+export { CaptchaError } from "captigo";
 export type {
   AdapterConfig,
   AdapterMeta,
   CaptchaAdapter,
-  CaptchaError,
+  CaptchaErrorCode,
   CaptchaMode,
   CaptchaToken,
-  CaptchaWidget,
   VerifyResult,
   WidgetCallbacks,
 } from "captigo";
@@ -40,7 +42,8 @@ export interface UseCaptchaReturn {
  * Vue 3 composable for managing a CAPTCHA widget lifecycle.
  *
  * Pass a `Ref<HTMLElement | null>` for the container for managed/interactive
- * adapters. For passive adapters, `containerRef` may be omitted.
+ * adapters. For passive adapters (`meta.requiresContainer === false`),
+ * `containerRef` may be omitted.
  *
  * @example
  * ```ts
@@ -55,7 +58,7 @@ export function useCaptcha<TConfig extends AdapterConfig>(
   _options?: UseCaptchaOptions,
 ): UseCaptchaReturn {
   // TODO: implement using onMounted/onUnmounted for widget lifecycle,
-  //       ref() for token/isLoading/isReady, and computed for execute/reset
+  //       ref() for token/isLoading/isReady
   throw new Error("@captigo/vue: useCaptcha is not yet implemented");
 }
 
@@ -72,7 +75,7 @@ export interface CaptchaWidgetProps<TConfig extends AdapterConfig> {
 
 /**
  * Vue 3 component that renders the appropriate CAPTCHA widget for the given
- * adapter. Forwards lifecycle events via emits in the full implementation.
+ * adapter and forwards lifecycle events.
  *
  * @example
  * ```vue
