@@ -14,6 +14,7 @@ export type {
   CaptchaMode,
   CaptchaToken,
   CaptchaWidget,
+  VerifyOptions,
   VerifyResult,
   WidgetCallbacks,
 } from "captigo";
