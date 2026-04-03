@@ -21,8 +21,12 @@ export interface WidgetCallbacks {
 
 // ─── Render options ───────────────────────────────────────────────────────────
 
-export interface RenderOptions<TConfig extends AdapterConfig = AdapterConfig> {
-  config: TConfig;
+/**
+ * Options passed to `adapter.render()`. The adapter uses its own stored config
+ * when mounting the widget — only callbacks are required here.
+ * Additional rendering options may be added in future minor versions.
+ */
+export interface RenderOptions {
   callbacks: WidgetCallbacks;
 }
 
@@ -47,7 +51,7 @@ export interface CaptchaWidget {
    *   with a token. No user interaction occurs.
    *
    * @param action - Optional action label for auditing (e.g. `"login"`,
-   *   `"checkout"`). Used by score-based providers; ignored by others.
+   *   `"checkout"`). Supported by interactive/passive providers.
    */
   execute(action?: string): Promise<CaptchaToken>;
 
@@ -89,7 +93,7 @@ export interface CaptchaWidget {
  * const adapter = turnstile({ siteKey: "0x..." });
  *
  * // Client — mount the widget
- * const widget = adapter.render(container, { config, callbacks });
+ * const widget = adapter.render(container, { callbacks });
  * const token = await widget.execute();
  *
  * // Server — verify the submitted token
@@ -100,15 +104,17 @@ export interface CaptchaWidget {
 export interface CaptchaAdapter<TConfig extends AdapterConfig = AdapterConfig> {
   readonly meta: AdapterMeta;
 
+  /** The configuration this adapter was created with. */
+  readonly config: TConfig;
+
   /**
    * Mount the CAPTCHA widget into `container` and return a widget handle.
    *
-   * The adapter is responsible for lazy-loading any provider scripts before
-   * rendering. For `passive` adapters, `container` may be a detached element
-   * or ignored entirely — check `meta.requiresContainer` to decide whether
-   * to provide a real element.
+   * The adapter is responsible for lazy-loading any required provider scripts.
+   * For `passive` adapters, `container` may be ignored — check
+   * `meta.requiresContainer` before providing a real element.
    */
-  render(container: HTMLElement, options: RenderOptions<TConfig>): CaptchaWidget;
+  render(container: HTMLElement, options: RenderOptions): CaptchaWidget;
 
   /**
    * Verify a client-submitted token against the provider's server-side API.

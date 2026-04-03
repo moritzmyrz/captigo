@@ -75,7 +75,7 @@ export function useCaptcha<TConfig extends AdapterConfig>(
 
 // ─── CaptchaWidget ────────────────────────────────────────────────────────────
 
-export interface CaptchaWidgetProps<TConfig extends AdapterConfig> {
+export interface CaptchaWidgetProps<TConfig extends AdapterConfig = AdapterConfig> {
   adapter: CaptchaAdapter<TConfig>;
   onSuccess?: (token: CaptchaToken) => void;
   onError?: (error: unknown) => void;
