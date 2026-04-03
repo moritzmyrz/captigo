@@ -1,0 +1,52 @@
+name: Bug Report
+description: Report a bug or unexpected behavior
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Please fill out the fields below as clearly as possible.
+
+  - type: input
+    id: package
+    attributes:
+      label: Affected package
+      description: Which package is this about? (e.g. `@captigo/core`, `@captigo/hcaptcha`)
+      placeholder: "@captigo/core"
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected to happen instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Code snippet or steps to reproduce the issue.
+      render: typescript
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Node.js version, OS, runtime (browser/Node/edge), framework if applicable.
+      placeholder: |
+        - Node: 22.x
+        - OS: macOS 15
+        - Runtime: Browser
