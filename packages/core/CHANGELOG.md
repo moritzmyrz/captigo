@@ -4,4 +4,4 @@
 
 ### Minor Changes
 
-- Initial public release: core types, Turnstile, hCaptcha, reCAPTCHA v2/v3 adapters, React and Vue integrations.
+- Initial release: `CaptchaAdapter` / `CaptchaWidget` contracts, shared verification types, and `CaptchaError`.
