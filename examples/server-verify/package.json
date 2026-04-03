@@ -1,0 +1,23 @@
+{
+  "name": "@captigo-examples/server-verify",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Example: server-side token verification with Express",
+  "type": "module",
+  "scripts": {
+    "dev": "node --import tsx/esm src/server.ts",
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "@captigo/hcaptcha": "workspace:*",
+    "@captigo/recaptcha": "workspace:*",
+    "@captigo/turnstile": "workspace:*",
+    "captigo": "workspace:*",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "tsx": "^4.7.0",
+    "typescript": "^5.7.3"
+  }
+}
