@@ -12,8 +12,23 @@ export interface ProviderVerifyResponse {
 }
 
 /**
+ * Thrown by `postVerify` when the HTTP response has a non-OK status.
+ * Provider packages catch this and re-throw as `CaptchaError("verify-failed")`.
+ */
+export class VerifyRequestError extends Error {
+  readonly status: number;
+
+  constructor(status: number) {
+    super(`Verification request failed with HTTP ${status}`);
+    this.name = "VerifyRequestError";
+    this.status = status;
+  }
+}
+
+/**
  * POST to a provider's siteverify endpoint with the given form fields.
- * Returns the parsed JSON response.
+ * Returns the parsed JSON response, or throws `VerifyRequestError` on non-OK
+ * HTTP responses.
  */
 export async function postVerify<T extends ProviderVerifyResponse>(
   url: string,
@@ -27,7 +42,7 @@ export async function postVerify<T extends ProviderVerifyResponse>(
   });
 
   if (!response.ok) {
-    throw new Error(`captigo: verification request failed with status ${response.status}`);
+    throw new VerifyRequestError(response.status);
   }
 
   return response.json() as Promise<T>;
