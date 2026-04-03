@@ -1,0 +1,46 @@
+{
+  "name": "@captigo/vue",
+  "version": "0.0.0",
+  "description": "Vue 3 composables and components for captigo",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "src"],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo"
+  },
+  "dependencies": {
+    "captigo": "workspace:*"
+  },
+  "peerDependencies": {
+    "vue": ">=3.0.0"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.0",
+    "typescript": "^5.7.3",
+    "vue": "^3.4.0"
+  },
+  "keywords": ["captcha", "vue", "vue3", "composables"],
+  "license": "MIT",
+  "homepage": "https://github.com/moritzmyrz/captigo#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moritzmyrz/captigo.git",
+    "directory": "packages/vue"
+  },
+  "bugs": {
+    "url": "https://github.com/moritzmyrz/captigo/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
