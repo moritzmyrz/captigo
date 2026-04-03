@@ -163,11 +163,15 @@ export class TurnstileWidget implements CaptchaWidget {
           // managed mode: wait for the automatic callback.
         })
         .catch((err: unknown) => {
-          const error = new CaptchaError(
-            "script-load-failed",
-            err instanceof Error ? err.message : String(err),
-            "turnstile",
-          );
+          // Re-use the error if it already came from captigo (e.g. loadScript()).
+          const error =
+            err instanceof CaptchaError
+              ? err
+              : new CaptchaError(
+                  "script-load-failed",
+                  err instanceof Error ? err.message : String(err),
+                  "turnstile",
+                );
           this.rejectAll(error);
           this.callbacks.onError?.(error);
         });
