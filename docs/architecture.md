@@ -12,8 +12,9 @@ This document explains the design decisions behind `captigo`'s abstractions. It'
 @captigo/turnstile    Cloudflare Turnstile adapter
 @captigo/hcaptcha     hCaptcha adapter
 @captigo/recaptcha    Google reCAPTCHA v2/v3 adapter
-@captigo/react        React useCaptcha hook + CaptchaWidget component
-@captigo/vue          Vue 3 useCaptcha composable + CaptchaWidget component
+@captigo/react        React useCaptcha hook + <Captcha> component
+@captigo/vue          Vue 3 useCaptcha composable + <Captcha> component
+@captigo/nextjs       Server helpers for Web Request (e.g. App Router); no UI
 ```
 
 Application code typically depends on `@captigo/core` for types (often transitively via a framework or provider package). Framework packages depend on `@captigo/core`. Provider packages depend on both `@captigo/core` and `@captigo/shared` at build time; `@captigo/shared` is bundled into published provider packages.

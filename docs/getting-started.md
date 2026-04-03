@@ -1,6 +1,6 @@
 # Getting Started
 
-Captigo is a TypeScript-first library ecosystem for integrating CAPTCHA providers. You get a unified interface that works across Cloudflare Turnstile, hCaptcha, and Google reCAPTCHA — with first-class framework support for React and Vue 3.
+Captigo is a TypeScript-first library ecosystem for integrating CAPTCHA providers. You get a unified interface that works across Cloudflare Turnstile, hCaptcha, and Google reCAPTCHA — with first-class support for React and Vue 3, plus optional [`@captigo/nextjs`](../packages/nextjs) helpers for App Router verification.
 
 ---
 
@@ -10,8 +10,10 @@ Every provider is wrapped in a `CaptchaAdapter` — a small object that holds yo
 
 ```
 @captigo/turnstile  ─┐
-@captigo/hcaptcha   ─┤──▶  CaptchaAdapter ──▶  @captigo/react
-@captigo/recaptcha  ─┘                     └──▶  @captigo/vue
+@captigo/hcaptcha   ─┼──▶  CaptchaAdapter ──▶  @captigo/react
+@captigo/recaptcha  ─┘                  └──▶  @captigo/vue
+
+Server verification: adapter.verify() / verifyToken(), or @captigo/nextjs helpers on Request objects.
 ```
 
 Swapping providers is one line change.
@@ -72,6 +74,8 @@ const result = await verifyToken(token, process.env.TURNSTILE_SECRET!);
 if (!result.success) return Response.json({ error: "CAPTCHA failed" }, { status: 400 });
 ```
 
+**Next.js (App Router):** you can call `verifyToken` as above, or use [`verifyCaptchaFromRequest`](../packages/nextjs/README.md) to parse the body and forward client IP in one step.
+
 ---
 
 ## Quick start: Vue 3 + Turnstile
@@ -103,4 +107,4 @@ function onToken(token) {
 - [Supported providers](./providers.md) — configuration options for each provider
 - [Framework integrations](./frameworks.md) — React hooks, Vue composables, invisible widgets
 - [Server-side verification](./server-verification.md) — how to verify tokens safely
-- [Architecture](./architecture.md) — how captigo is designed and why
+- [Architecture](./architecture.md) — how Captigo is designed and why

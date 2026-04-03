@@ -228,3 +228,11 @@ function LoginForm() {
   );
 }
 ```
+
+---
+
+## Next.js — `@captigo/nextjs`
+
+The Next.js package is **server-oriented**: it does not render widgets. Use `@captigo/react` (or your own client integration) for the challenge, and `@captigo/nextjs` to parse `Request` bodies, resolve `CF-Connecting-IP` / `X-Forwarded-For`, and call `adapter.verify` in route handlers.
+
+See the [`@captigo/nextjs` README](../packages/nextjs/README.md) and [compatibility reference](./compatibility.md#framework-support).
