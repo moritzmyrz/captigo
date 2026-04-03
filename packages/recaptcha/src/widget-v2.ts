@@ -42,12 +42,12 @@ export class ReCaptchaV2Widget implements CaptchaWidget {
 
     this.widgetId = sdk.render(this.container, {
       sitekey: this.config.siteKey,
-      theme: this.config.theme,
       // reCAPTCHA v2 uses "normal" for the standard checkbox size.
       size: this.config.size === "checkbox" ? "normal" : (this.config.size ?? "normal"),
-      badge: this.config.badge,
-      tabindex: this.config.tabindex,
-      hl: this.config.language,
+      ...(this.config.theme !== undefined && { theme: this.config.theme }),
+      ...(this.config.badge !== undefined && { badge: this.config.badge }),
+      ...(this.config.tabindex !== undefined && { tabindex: this.config.tabindex }),
+      ...(this.config.language !== undefined && { hl: this.config.language }),
 
       callback: (rawToken) => {
         const token: CaptchaToken = {

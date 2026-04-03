@@ -49,18 +49,18 @@ export class TurnstileWidget implements CaptchaWidget {
 
     this.widgetId = sdk.render(this.container, {
       sitekey: this.config.siteKey,
-      theme: this.config.theme,
-      language: this.config.language,
-      size: this.config.size,
       execution: this.config.execution ?? "render",
-      appearance: this.config.appearance,
-      tabindex: this.config.tabindex,
-      action: this.config.action,
-      cData: this.config.cData,
-      retry: this.config.retry,
-      "retry-interval": this.config.retryInterval,
-      "refresh-expired": this.config.refreshExpired,
-      "refresh-timeout": this.config.refreshTimeout,
+      ...(this.config.theme !== undefined && { theme: this.config.theme }),
+      ...(this.config.language !== undefined && { language: this.config.language }),
+      ...(this.config.size !== undefined && { size: this.config.size }),
+      ...(this.config.appearance !== undefined && { appearance: this.config.appearance }),
+      ...(this.config.tabindex !== undefined && { tabindex: this.config.tabindex }),
+      ...(this.config.action !== undefined && { action: this.config.action }),
+      ...(this.config.cData !== undefined && { cData: this.config.cData }),
+      ...(this.config.retry !== undefined && { retry: this.config.retry }),
+      ...(this.config.retryInterval !== undefined && { "retry-interval": this.config.retryInterval }),
+      ...(this.config.refreshExpired !== undefined && { "refresh-expired": this.config.refreshExpired }),
+      ...(this.config.refreshTimeout !== undefined && { "refresh-timeout": this.config.refreshTimeout }),
 
       callback: (rawToken) => {
         const t: CaptchaToken = {

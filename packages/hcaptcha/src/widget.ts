@@ -40,11 +40,11 @@ export class HCaptchaWidget implements CaptchaWidget {
 
     this.widgetId = sdk.render(this.container, {
       sitekey: this.config.siteKey,
-      theme: this.config.theme,
       size: this.config.size ?? "normal",
-      tabindex: this.config.tabindex,
-      languageoverride: this.config.language,
-      endpoint: this.config.endpoint,
+      ...(this.config.theme !== undefined && { theme: this.config.theme }),
+      ...(this.config.tabindex !== undefined && { tabindex: this.config.tabindex }),
+      ...(this.config.language !== undefined && { languageoverride: this.config.language }),
+      ...(this.config.endpoint !== undefined && { endpoint: this.config.endpoint }),
 
       callback: (rawToken) => {
         const token: CaptchaToken = {
