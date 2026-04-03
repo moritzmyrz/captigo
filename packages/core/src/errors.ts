@@ -12,6 +12,14 @@ export type CaptchaErrorCode =
   | "provider-error" // provider returned success:false with error codes
   | "not-implemented"; // adapter method has not been implemented yet
 
+/** V8-only (Node.js / Chrome). Not on `ErrorConstructor` in DOM/ES libs. */
+type ErrorConstructorWithCapture = ErrorConstructor & {
+  captureStackTrace?: (
+    target: object,
+    constructorOpt?: new (...args: unknown[]) => unknown,
+  ) => void;
+};
+
 export class CaptchaError extends Error {
   readonly code: CaptchaErrorCode;
   /** The provider that raised this error, if known (e.g. "turnstile"). */
@@ -24,8 +32,9 @@ export class CaptchaError extends Error {
     this.provider = provider;
 
     // Preserves a clean stack trace in V8 (Node.js / Chrome).
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, CaptchaError);
+    const Err = Error as ErrorConstructorWithCapture;
+    if (typeof Err.captureStackTrace === "function") {
+      Err.captureStackTrace(this, CaptchaError);
     }
   }
 }
