@@ -22,10 +22,10 @@
     "clean": "rm -rf dist tsconfig.tsbuildinfo"
   },
   "dependencies": {
-    "@captigo/shared": "workspace:*",
     "captigo": "workspace:*"
   },
   "devDependencies": {
+    "@captigo/shared": "workspace:*",
     "@vitest/coverage-v8": "^3.1.1",
     "jsdom": "^26.0.0",
     "tsup": "^8.3.0",
