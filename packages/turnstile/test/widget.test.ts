@@ -1,4 +1,5 @@
 import { CaptchaError } from "@captigo/core";
+import type { CaptchaToken } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { TurnstileRenderOptions } from "../src/types.js";
 import { TurnstileWidget } from "../src/widget.js";
@@ -63,6 +64,20 @@ describe("TurnstileWidget", () => {
         container,
         expect.objectContaining({ sitekey: "test-key", theme: "dark" }),
       );
+    });
+
+    it("skips sdk.render if the widget is destroyed before loadScript resolves", async () => {
+      const widget = new TurnstileWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
+
+      // Destroy synchronously before the loadScript microtask resolves.
+      widget.destroy();
+      await flush();
+
+      expect(mockSdk.render).not.toHaveBeenCalled();
     });
 
     it("passes execution mode to sdk.render", async () => {
@@ -282,6 +297,34 @@ describe("TurnstileWidget", () => {
       expect(mockSdk.remove).toHaveBeenCalledWith("widget-001");
     });
 
+    it("does not call sdk.remove if the widget was never mounted", async () => {
+      const widget = new TurnstileWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
+
+      widget.destroy(); // widgetId is still null at this point
+      await flush();
+
+      expect(mockSdk.remove).not.toHaveBeenCalled();
+    });
+
+    it("getToken() returns null after destroy", async () => {
+      const widget = new TurnstileWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
+
+      await flush();
+      capturedOptions.callback("tok");
+      expect(widget.getToken()).not.toBeNull();
+
+      widget.destroy();
+      expect(widget.getToken()).toBeNull();
+    });
+
     it("rejects execute() calls made after destroy()", async () => {
       const widget = new TurnstileWidget(
         document.createElement("div"),
@@ -309,6 +352,20 @@ describe("TurnstileWidget", () => {
       expect(onSuccess).toHaveBeenCalledWith(
         expect.objectContaining({ value: "tok", provider: "turnstile" }),
       );
+    });
+
+    it("sets issuedAt to the time the challenge completed", async () => {
+      const onSuccess = vi.fn();
+      const before = Date.now();
+      new TurnstileWidget(document.createElement("div"), { siteKey: "k" }, { onSuccess });
+
+      await flush();
+      capturedOptions.callback("tok");
+      const after = Date.now();
+
+      const token = onSuccess.mock.calls[0]?.[0] as CaptchaToken;
+      expect(token.issuedAt).toBeGreaterThanOrEqual(before);
+      expect(token.issuedAt).toBeLessThanOrEqual(after);
     });
 
     it("calls onError when the SDK fires an error", async () => {
