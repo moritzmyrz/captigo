@@ -4,60 +4,103 @@
 
 [![CI](https://github.com/moritzmyrz/captigo/actions/workflows/ci.yml/badge.svg)](https://github.com/moritzmyrz/captigo/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
+[![pnpm](https://img.shields.io/badge/maintained%20with-pnpm-cc00ff.svg)](https://pnpm.io/)
 
 ---
 
-Captigo is a TypeScript-first library ecosystem for integrating CAPTCHA providers. Instead of writing provider-specific code throughout your application, you get a unified interface that works across hCaptcha, Turnstile, reCAPTCHA, and more — with first-class support for popular frameworks.
+Captigo is a TypeScript-first library ecosystem for integrating CAPTCHA providers. Instead of coupling your application to a specific provider's API, you get a single unified interface that works across Cloudflare Turnstile, hCaptcha, and Google reCAPTCHA — with first-class React and Vue 3 integrations.
 
 ## Why Captigo?
 
-CAPTCHA providers all have slightly different APIs, token shapes, widget lifecycles, and server-side verification flows. Switching providers — or running A/B tests between them — means touching a lot of code. Captigo fixes that with a consistent abstraction that stays out of your way.
+Every provider has slightly different APIs, widget lifecycles, token shapes, and server-side verification flows. Switching providers — or A/B testing between them — means touching a lot of code. Captigo fixes that with a consistent abstraction that stays out of your way.
 
-- **One API, any provider.** Swap hCaptcha for Turnstile without rewriting your integration.
-- **Tree-shakeable.** Import only the provider you need. No dead code.
-- **Framework-ready.** First-class integrations for React, Next.js, and SvelteKit (planned).
-- **Fully typed.** Strict TypeScript throughout. No `any`.
+- **One API, any provider.** Swap Turnstile for hCaptcha without rewriting your integration.
+- **Framework-native.** React hooks and components. Vue composables. Both feel idiomatic.
+- **Fully typed.** Strict TypeScript throughout. No `any`. No guessing.
+- **Tree-shakeable.** Import only what you use. Zero dead code in production bundles.
 - **Zero magic.** No hidden globals, no monkey-patching, no surprises.
 
 ## Packages
 
-This is a monorepo. Packages are published independently under the `@captigo` scope.
-
-| Package | Description | Status |
+| Package | npm | Description |
 |---|---|---|
-| [`captigo`](./packages/core) | Core types and provider interface | Scaffolded |
-| [`@captigo/turnstile`](./packages/turnstile) | Cloudflare Turnstile adapter | Scaffolded |
-| [`@captigo/hcaptcha`](./packages/hcaptcha) | hCaptcha adapter | Scaffolded |
-| [`@captigo/recaptcha`](./packages/recaptcha) | Google reCAPTCHA v2/v3 adapter | Scaffolded |
-| [`@captigo/react`](./packages/react) | React hooks and components | Scaffolded |
-| [`@captigo/vue`](./packages/vue) | Vue 3 composables and components | Scaffolded |
-| `@captigo/nextjs` | Next.js integration (App Router + Pages) | Planned |
-| `@captigo/sveltekit` | SvelteKit integration | Planned |
+| [`captigo`](./packages/core) | [![npm](https://img.shields.io/npm/v/captigo)](https://www.npmjs.com/package/captigo) | Core types and provider adapter interface |
+| [`@captigo/turnstile`](./packages/turnstile) | [![npm](https://img.shields.io/npm/v/@captigo/turnstile)](https://www.npmjs.com/package/@captigo/turnstile) | Cloudflare Turnstile adapter |
+| [`@captigo/hcaptcha`](./packages/hcaptcha) | [![npm](https://img.shields.io/npm/v/@captigo/hcaptcha)](https://www.npmjs.com/package/@captigo/hcaptcha) | hCaptcha adapter |
+| [`@captigo/recaptcha`](./packages/recaptcha) | [![npm](https://img.shields.io/npm/v/@captigo/recaptcha)](https://www.npmjs.com/package/@captigo/recaptcha) | Google reCAPTCHA v2/v3 adapter |
+| [`@captigo/react`](./packages/react) | [![npm](https://img.shields.io/npm/v/@captigo/react)](https://www.npmjs.com/package/@captigo/react) | React hooks and components |
+| [`@captigo/vue`](./packages/vue) | [![npm](https://img.shields.io/npm/v/@captigo/vue)](https://www.npmjs.com/package/@captigo/vue) | Vue 3 composables and components |
+| `@captigo/nextjs` | — | Next.js integration *(planned)* |
+| `@captigo/sveltekit` | — | SvelteKit integration *(planned)* |
+
+## Quick start
+
+```bash
+pnpm add captigo @captigo/turnstile @captigo/react
+```
+
+```tsx
+import { turnstile } from "@captigo/turnstile";
+import { Captcha } from "@captigo/react";
+
+// Create the adapter once — outside the component to keep the widget stable.
+const adapter = turnstile({ siteKey: "0x4AAAAAAAxxx" });
+
+export function LoginForm() {
+  return (
+    <form onSubmit={handleSubmit}>
+      <Captcha adapter={adapter} onSuccess={(token) => setToken(token.value)} />
+      <button type="submit">Log in</button>
+    </form>
+  );
+}
+```
+
+On the server:
+
+```ts
+import { verifyToken } from "@captigo/turnstile";
+
+const result = await verifyToken(token, process.env.TURNSTILE_SECRET!);
+if (!result.success) return Response.json({ error: "CAPTCHA failed" }, { status: 400 });
+```
+
+Swap `turnstile(...)` for `hcaptcha(...)` or `recaptchaV2(...)` — nothing else changes.
 
 ## Design
 
-Every provider implements a common `CaptchaProvider` interface defined in `@captigo/core`. Your application code only ever depends on `@captigo/core` — the specific provider is injected at the edges of your system.
+Every provider implements the `CaptchaAdapter` interface from `captigo`. Your application code only ever depends on the interface, not the provider:
 
 ```
-┌─────────────────────────────────┐
-│         Your application        │
-│   depends on @captigo/core only │
-└────────────────┬────────────────┘
-                 │ CaptchaProvider interface
-     ┌───────────┼───────────┐
-     ▼           ▼           ▼
- hCaptcha    Turnstile   reCAPTCHA
+captigo (core types)
+    ↑
+    │  implements CaptchaAdapter
+    ├── @captigo/turnstile
+    ├── @captigo/hcaptcha
+    └── @captigo/recaptcha
+
+    ↑  consumes CaptchaAdapter
+    ├── @captigo/react
+    └── @captigo/vue
 ```
 
-This means you can configure the provider once (e.g. based on an environment variable) and the rest of your code stays unchanged.
+Configuring a different provider is a one-line change at the call site. Framework integration code is unchanged.
 
-## Getting started
+## Documentation
 
-> Packages are not yet published. This section will be updated when the first stable release is out.
+- **[Getting started](./docs/getting-started.md)** — installation, quick starts for React and Vue
+- **[Supported providers](./docs/providers.md)** — Turnstile, hCaptcha, reCAPTCHA v2/v3 configuration
+- **[Framework integrations](./docs/frameworks.md)** — React hooks, Vue composables, invisible widgets
+- **[Server-side verification](./docs/server-verification.md)** — how to verify tokens safely
+- **[Architecture](./docs/architecture.md)** — design decisions and internal structure
 
-```bash
-pnpm add @captigo/core @captigo/turnstile
-```
+## Examples
+
+Runnable examples using workspace packages:
+
+- [`examples/react-turnstile`](./examples/react-turnstile) — Vite + React, managed and invisible widgets
+- [`examples/vue-turnstile`](./examples/vue-turnstile) — Vite + Vue 3, same patterns
+- [`examples/server-verify`](./examples/server-verify) — Express server verifying tokens from all providers
 
 ## Monorepo development
 
