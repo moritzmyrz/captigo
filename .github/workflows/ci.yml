@@ -74,17 +74,9 @@ jobs:
       - name: Build packages
         run: pnpm build
 
-      - name: Upload build artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: packages/*/dist
-          retention-days: 1
-
   test:
     name: Test
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - uses: actions/checkout@v4
 
@@ -99,11 +91,10 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
-      - name: Download build artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: packages
+      # Tests import workspace packages by name (e.g. "captigo") which resolve
+      # to dist/. Build first so those imports resolve correctly.
+      - name: Build packages
+        run: pnpm build
 
       - name: Run tests
         run: pnpm test
