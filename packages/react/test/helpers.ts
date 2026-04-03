@@ -1,3 +1,4 @@
+import { CaptchaError } from "@captigo/core";
 import type { CaptchaAdapter, CaptchaToken, CaptchaWidget, WidgetCallbacks } from "@captigo/core";
 import { vi } from "vitest";
 
@@ -61,7 +62,6 @@ export function createMockAdapter() {
   };
 
   const fireError = (message = "challenge failed") => {
-    const { CaptchaError } = require("@captigo/core") as typeof import("@captigo/core");
     const { callbacks } = getLastRender();
     callbacks.onError?.(new CaptchaError("provider-error", message, "mock"));
   };
