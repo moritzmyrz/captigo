@@ -76,6 +76,24 @@ describe("<Captcha />", () => {
       });
     });
 
+    it("calls onError when the widget fires an error", async () => {
+      const onError = vi.fn();
+      const { mockAdapter, fireError } = createMockAdapter();
+      render(<Captcha adapter={mockAdapter} onError={onError} />);
+
+      act(() => {
+        fireError("something broke");
+      });
+
+      await waitFor(() => {
+        expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError.mock.calls[0]?.[0]).toMatchObject({
+          code: "provider-error",
+          message: "something broke",
+        });
+      });
+    });
+
     it("calls onExpire when the token expires", async () => {
       const onExpire = vi.fn();
       const { mockAdapter, fireSuccess, fireExpire } = createMockAdapter();
