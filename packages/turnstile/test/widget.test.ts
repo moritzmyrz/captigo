@@ -113,9 +113,7 @@ describe("TurnstileWidget", () => {
 
       await flush();
 
-      expect(onError).toHaveBeenCalledWith(
-        expect.objectContaining({ code: "script-load-failed" }),
-      );
+      expect(onError).toHaveBeenCalledWith(expect.objectContaining({ code: "script-load-failed" }));
     });
 
     it("rejects any pending execute() calls when loadScript fails", async () => {

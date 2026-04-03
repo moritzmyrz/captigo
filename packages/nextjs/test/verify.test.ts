@@ -1,6 +1,6 @@
-import { describe, expect, it, vi } from "vitest";
-import type { CaptchaAdapter, VerifyResult } from "@captigo/core";
 import { CaptchaError } from "@captigo/core";
+import type { CaptchaAdapter, VerifyResult } from "@captigo/core";
+import { describe, expect, it, vi } from "vitest";
 import { verifyCaptchaFromRequest } from "../src/verify.js";
 
 // ─── Test fixtures ────────────────────────────────────────────────────────────

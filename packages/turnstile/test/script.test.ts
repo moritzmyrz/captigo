@@ -57,7 +57,7 @@ describe("loadScript()", () => {
       const { loadScript } = await import("../src/script.js");
 
       const promise = loadScript();
-      getInjectedScript()!.onload!(new Event("load"));
+      getInjectedScript()?.onload?.(new Event("load"));
 
       await expect(promise).resolves.toBeUndefined();
     });
@@ -66,7 +66,7 @@ describe("loadScript()", () => {
       const { loadScript } = await import("../src/script.js");
 
       const promise = loadScript();
-      getInjectedScript()!.onerror!(new Event("error"));
+      getInjectedScript()?.onerror?.(new Event("error"));
 
       // vi.resetModules() produces a fresh CaptchaError class, so instanceof
       // crosses module boundaries. Match on properties instead.
@@ -90,7 +90,7 @@ describe("loadScript()", () => {
       expect(p1).toBe(p2);
       expect(p2).toBe(p3);
 
-      getInjectedScript()!.onload!(new Event("load"));
+      getInjectedScript()?.onload?.(new Event("load"));
       await p1;
     });
 
@@ -103,7 +103,7 @@ describe("loadScript()", () => {
 
       expect(document.querySelectorAll(`script[src="${SCRIPT_URL}"]`)).toHaveLength(1);
 
-      getInjectedScript()!.onload!(new Event("load"));
+      getInjectedScript()?.onload?.(new Event("load"));
     });
 
     it("resolves immediately without injecting a script if window.turnstile is already defined", async () => {
@@ -122,7 +122,7 @@ describe("loadScript()", () => {
 
       // First attempt: fails.
       const p1 = loadScript();
-      getInjectedScript()!.onerror!(new Event("error"));
+      getInjectedScript()?.onerror?.(new Event("error"));
       await p1.catch(() => {});
 
       // Remove the failed script so the DOM is clean for the next attempt.
@@ -133,7 +133,7 @@ describe("loadScript()", () => {
       expect(p1).not.toBe(p2);
       expect(getInjectedScript()).not.toBeNull();
 
-      getInjectedScript()!.onload!(new Event("load"));
+      getInjectedScript()?.onload?.(new Event("load"));
       await p2;
     });
   });
