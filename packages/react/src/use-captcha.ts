@@ -124,7 +124,7 @@ export function useCaptcha<TConfig extends AdapterConfig = AdapterConfig>(
         new CaptchaError(
           "execute-failed",
           "@captigo/react: widget is not mounted. Make sure the container ref is attached to a DOM element.",
-          "@captigo/core",
+          "react",
         ),
       );
     }
