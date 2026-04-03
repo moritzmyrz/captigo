@@ -122,6 +122,7 @@ Configuring a different provider is a one-line change at the call site. Framewor
 - **[Supported providers](./docs/providers.md)** — Turnstile, hCaptcha, reCAPTCHA v2/v3 configuration
 - **[Framework integrations](./docs/frameworks.md)** — React hooks, Vue composables, invisible widgets
 - **[Server-side verification](./docs/server-verification.md)** — how to verify tokens safely
+- **[Compatibility reference](./docs/compatibility.md)** — feature matrix, per-provider caveats, and recommendations
 - **[Architecture](./docs/architecture.md)** — design decisions and internal structure
 
 ## Examples

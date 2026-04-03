@@ -50,6 +50,7 @@ const result = await verifyToken(submittedToken, process.env.TURNSTILE_SECRET!);
 | `success` | `boolean` | Whether the token is valid |
 | `challengeTs` | `string` | ISO 8601 timestamp of the challenge |
 | `hostname` | `string` | Domain where the challenge was solved |
+| `score` | `number` | Bot-likelihood score (`0.0`–`1.0`). `1.0` = likely human. |
 | `errorCodes` | `string[]` | Present when `success: false` |
 
 ---
@@ -162,7 +163,13 @@ if (result.score < 0.5) return reject();
 
 ---
 
+---
+
 ## Choosing a provider
+
+For a full breakdown of supported features, known limitations, and recommended pairings, see [docs/compatibility.md](./compatibility.md).
+
+
 
 | | Turnstile | hCaptcha | reCAPTCHA v2 | reCAPTCHA v3 |
 |---|---|---|---|---|
