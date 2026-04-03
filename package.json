@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm --filter @captigo/core --filter @captigo/shared run build && pnpm -r run build",
-    "typecheck": "pnpm -r run typecheck",
+    "typecheck": "pnpm --filter @captigo/core --filter @captigo/shared run build && pnpm -r run typecheck",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
