@@ -165,6 +165,24 @@ describe("useCaptcha()", () => {
       });
     });
 
+    it("forwards onError to the widget callbacks", async () => {
+      const onError = vi.fn();
+      const { mockAdapter, fireError } = createMockAdapter();
+      render(<TestWidget adapter={mockAdapter} onError={onError} />);
+
+      act(() => {
+        fireError("widget exploded");
+      });
+
+      await waitFor(() => {
+        expect(onError).toHaveBeenCalledTimes(1);
+        expect(onError.mock.calls[0]?.[0]).toMatchObject({
+          code: "provider-error",
+          message: "widget exploded",
+        });
+      });
+    });
+
     it("does not remount the widget when callback identity changes", async () => {
       const { mockAdapter } = createMockAdapter();
       const { rerender } = render(<TestWidget adapter={mockAdapter} onSuccess={() => void 0} />);
