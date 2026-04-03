@@ -2,8 +2,17 @@
   "name": "captigo",
   "private": true,
   "version": "0.0.0",
-  "description": "Provider-agnostic CAPTCHA library ecosystem for the modern web",
+  "description": "Captigo monorepo — provider-agnostic CAPTCHA adapters, React, Vue, and Next.js helpers",
   "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/moritzmyrz/captigo#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moritzmyrz/captigo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/moritzmyrz/captigo/issues"
+  },
   "scripts": {
     "build": "pnpm --filter @captigo/core --filter @captigo/shared run build && pnpm -r run build",
     "typecheck": "pnpm --filter @captigo/core --filter @captigo/shared run build && pnpm -r run typecheck",
