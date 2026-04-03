@@ -32,9 +32,12 @@
     "typescript": "^5.7.3",
     "vitest": "^3.1.1"
   },
-  "keywords": ["captcha", "recaptcha", "google", "security"],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": ["captcha", "recaptcha", "google", "security", "typescript", "captigo"],
   "license": "MIT",
-  "homepage": "https://github.com/moritzmyrz/captigo#readme",
+  "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/recaptcha#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/moritzmyrz/captigo.git",

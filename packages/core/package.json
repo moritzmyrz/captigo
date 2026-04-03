@@ -22,9 +22,12 @@
     "tsup": "^8.3.0",
     "typescript": "^5.7.3"
   },
-  "keywords": ["captcha", "hcaptcha", "recaptcha", "turnstile", "cloudflare", "security"],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": ["captcha", "hcaptcha", "recaptcha", "turnstile", "cloudflare", "security", "typescript", "provider-agnostic"],
   "license": "MIT",
-  "homepage": "https://github.com/moritzmyrz/captigo#readme",
+  "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/core#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/moritzmyrz/captigo.git",

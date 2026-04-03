@@ -36,9 +36,12 @@
     "vitest": "^3.1.1",
     "vue": "^3.4.0"
   },
-  "keywords": ["captcha", "vue", "vue3", "composables"],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "keywords": ["captcha", "vue", "vue3", "composables", "security", "typescript", "captigo"],
   "license": "MIT",
-  "homepage": "https://github.com/moritzmyrz/captigo#readme",
+  "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/vue#readme",
   "repository": {
     "type": "git",
     "url": "https://github.com/moritzmyrz/captigo.git",
