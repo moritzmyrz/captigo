@@ -15,7 +15,7 @@ Captigo is a TypeScript-first library ecosystem for integrating CAPTCHA provider
 Every provider has slightly different APIs, widget lifecycles, token shapes, and server-side verification flows. Switching providers — or A/B testing between them — means touching a lot of code. Captigo fixes that with a consistent abstraction that stays out of your way.
 
 - **One API, any provider.** Swap Turnstile for hCaptcha without rewriting your integration.
-- **Framework-native.** React hooks and components. Vue composables. Both feel idiomatic.
+- **Framework-native.** React and Vue integrations; optional `@captigo/nextjs` helpers for route-handler verification.
 - **Fully typed.** Strict TypeScript throughout. No `any`. No guessing.
 - **Tree-shakeable.** Import only what you use. Zero dead code in production bundles.
 - **Zero magic.** No hidden globals, no monkey-patching, no surprises.
@@ -28,9 +28,9 @@ Every provider has slightly different APIs, widget lifecycles, token shapes, and
 | [`@captigo/turnstile`](./packages/turnstile) | [![npm](https://img.shields.io/npm/v/@captigo/turnstile)](https://www.npmjs.com/package/@captigo/turnstile) | Cloudflare Turnstile adapter |
 | [`@captigo/hcaptcha`](./packages/hcaptcha) | [![npm](https://img.shields.io/npm/v/@captigo/hcaptcha)](https://www.npmjs.com/package/@captigo/hcaptcha) | hCaptcha adapter |
 | [`@captigo/recaptcha`](./packages/recaptcha) | [![npm](https://img.shields.io/npm/v/@captigo/recaptcha)](https://www.npmjs.com/package/@captigo/recaptcha) | Google reCAPTCHA v2/v3 adapter |
-| [`@captigo/react`](./packages/react) | [![npm](https://img.shields.io/npm/v/@captigo/react)](https://www.npmjs.com/package/@captigo/react) | React hooks and components |
+| [`@captigo/react`](./packages/react) | [![npm](https://img.shields.io/npm/v/@captigo/react)](https://www.npmjs.com/package/@captigo/react) | React 18+ hooks and components |
 | [`@captigo/vue`](./packages/vue) | [![npm](https://img.shields.io/npm/v/@captigo/vue)](https://www.npmjs.com/package/@captigo/vue) | Vue 3 composables and components |
-| [`@captigo/nextjs`](./packages/nextjs) | [![npm](https://img.shields.io/npm/v/@captigo/nextjs)](https://www.npmjs.com/package/@captigo/nextjs) | Next.js helpers — token extraction, IP forwarding, route handler verification |
+| [`@captigo/nextjs`](./packages/nextjs) | [![npm](https://img.shields.io/npm/v/@captigo/nextjs)](https://www.npmjs.com/package/@captigo/nextjs) | Next.js App Router helpers — request parsing, client IP, route-handler verification |
 | `@captigo/sveltekit` | — | SvelteKit integration *(planned)* |
 
 ## Compatibility
@@ -112,7 +112,7 @@ Every provider implements the `CaptchaAdapter` interface from `@captigo/core`. Y
     ↑  consumes CaptchaAdapter
     ├── @captigo/react
     ├── @captigo/vue
-    └── @captigo/nextjs  (server-side route handler helpers)
+    └── @captigo/nextjs (server-side route handler helpers)
 ```
 
 Configuring a different provider is a one-line change at the call site. Framework integration code is unchanged.
