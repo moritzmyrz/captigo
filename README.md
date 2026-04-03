@@ -33,6 +33,36 @@ Every provider has slightly different APIs, widget lifecycles, token shapes, and
 | `@captigo/nextjs` | — | Next.js integration *(planned)* |
 | `@captigo/sveltekit` | — | SvelteKit integration *(planned)* |
 
+## Compatibility
+
+The table below describes what each provider adapter actually supports today.
+
+| Provider | Visible | Invisible | Passive | Reset | Destroy | Verify | Score | React | Vue | Example | Status |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Turnstile | ✅ | ✅ | — | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | **stable** |
+| hCaptcha | ✅ | ✅ | — | ✅ | ✅ | ✅ | — | ✅ | ✅ | — | **beta** |
+| reCAPTCHA v2 | ✅ | ✅ | — | ✅ | ⚠️ | ✅ | — | ✅ | ✅ | — | **beta** |
+| reCAPTCHA v3 | — | — | ✅ | — | ✅ | ✅ | ✅ | ✅ | ✅ | — | **beta** |
+
+**Column key:**
+- **Visible** — managed widget (visible checkbox, fires automatically)
+- **Invisible** — interactive widget, challenge fires on explicit `widget.execute()`
+- **Passive** — score-based, no user interaction or DOM widget (reCAPTCHA v3)
+- **Verify** — server-side token verification helper included
+- **Score** — verification result includes a risk score (`0.0`–`1.0`)
+
+**Status key:**
+- **stable** — primary supported path; well-tested; actively maintained
+- **beta** — functional and tested; receives less focused attention; edge cases may exist
+
+> ⚠️ **reCAPTCHA v2 destroy:** the provider SDK has no `remove()` API, so `widget.destroy()` calls `reset()` internally. The widget element is not removed from the DOM.
+
+> — **reCAPTCHA v3 reset:** `widget.reset()` clears the cached token but is otherwise a no-op — there is no stateful widget to reset.
+
+See [docs/compatibility.md](./docs/compatibility.md) for detailed notes, known caveats, and provider recommendations.
+
+---
+
 ## Quick start
 
 ```bash
