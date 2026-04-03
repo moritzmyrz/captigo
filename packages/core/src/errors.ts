@@ -34,7 +34,8 @@ export class CaptchaError extends Error {
     // Preserves a clean stack trace in V8 (Node.js / Chrome).
     const Err = Error as ErrorConstructorWithCapture;
     if (typeof Err.captureStackTrace === "function") {
-      Err.captureStackTrace(this, CaptchaError);
+      // V8 accepts any constructor; `CaptchaError`'s ctor params are stricter than `unknown[]`.
+      Err.captureStackTrace(this, CaptchaError as unknown as new (...args: unknown[]) => unknown);
     }
   }
 }
