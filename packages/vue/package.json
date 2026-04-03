@@ -1,6 +1,6 @@
 {
   "name": "@captigo/vue",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Vue 3 composables and components for captigo",
   "type": "module",
   "exports": {
@@ -11,7 +11,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
@@ -39,7 +42,15 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "vue", "vue3", "composables", "security", "typescript", "captigo"],
+  "keywords": [
+    "captcha",
+    "vue",
+    "vue3",
+    "composables",
+    "security",
+    "typescript",
+    "captigo"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/vue#readme",
   "repository": {

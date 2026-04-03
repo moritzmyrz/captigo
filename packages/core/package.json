@@ -1,6 +1,6 @@
 {
   "name": "@captigo/core",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Provider-agnostic CAPTCHA integration for the modern web",
   "type": "module",
   "exports": {
@@ -11,7 +11,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",

@@ -1,6 +1,6 @@
 {
   "name": "@captigo/turnstile",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Cloudflare Turnstile adapter for captigo",
   "type": "module",
   "exports": {
@@ -11,7 +11,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
@@ -35,7 +38,14 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "turnstile", "cloudflare", "security", "typescript", "captigo"],
+  "keywords": [
+    "captcha",
+    "turnstile",
+    "cloudflare",
+    "security",
+    "typescript",
+    "captigo"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/turnstile#readme",
   "repository": {

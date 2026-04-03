@@ -7,5 +7,10 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@captigo/shared"]
+  "ignore": [
+    "@captigo/shared",
+    "@captigo-examples/react-turnstile",
+    "@captigo-examples/vue-turnstile",
+    "@captigo-examples/server-verify"
+  ]
 }
