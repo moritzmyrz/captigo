@@ -65,6 +65,24 @@ describe("useCaptcha()", () => {
       expect(mockWidget.destroy).toHaveBeenCalledTimes(1);
     });
 
+    it("clears the token when the adapter changes", async () => {
+      const first = createMockAdapter();
+      const second = createMockAdapter();
+      const { rerender } = render(<TestWidget adapter={first.mockAdapter} />);
+
+      act(() => {
+        first.fireSuccess("tok");
+      });
+      await waitFor(() => expect(screen.getByTestId("token").textContent).toBe("tok"));
+
+      // Swapping the adapter should destroy the old widget and clear the token.
+      rerender(<TestWidget adapter={second.mockAdapter} />);
+
+      await waitFor(() => {
+        expect(screen.getByTestId("token").textContent).toBe("none");
+      });
+    });
+
     it("destroys the old widget and creates a new one when adapter changes", () => {
       const first = createMockAdapter();
       const second = createMockAdapter();
