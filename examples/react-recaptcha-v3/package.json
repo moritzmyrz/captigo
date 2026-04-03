@@ -1,0 +1,26 @@
+{
+  "name": "@captigo-examples/react-recaptcha-v3",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Example: reCAPTCHA v3 passive score token with React",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@captigo/core": "workspace:*",
+    "@captigo/react": "workspace:*",
+    "@captigo/recaptcha": "workspace:*",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.0"
+  }
+}
