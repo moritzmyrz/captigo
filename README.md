@@ -25,11 +25,12 @@ This is a monorepo. Packages are published independently under the `@captigo` sc
 
 | Package | Description | Status |
 |---|---|---|
-| [`@captigo/core`](./packages/core) | Shared types, provider interface, and utilities | Planned |
-| `@captigo/hcaptcha` | hCaptcha provider | Planned |
-| `@captigo/turnstile` | Cloudflare Turnstile provider | Planned |
-| `@captigo/recaptcha` | Google reCAPTCHA v2/v3 provider | Planned |
-| `@captigo/react` | React hooks and components | Planned |
+| [`captigo`](./packages/core) | Core types and provider interface | Scaffolded |
+| [`@captigo/turnstile`](./packages/turnstile) | Cloudflare Turnstile adapter | Scaffolded |
+| [`@captigo/hcaptcha`](./packages/hcaptcha) | hCaptcha adapter | Scaffolded |
+| [`@captigo/recaptcha`](./packages/recaptcha) | Google reCAPTCHA v2/v3 adapter | Scaffolded |
+| [`@captigo/react`](./packages/react) | React hooks and components | Scaffolded |
+| [`@captigo/vue`](./packages/vue) | Vue 3 composables and components | Scaffolded |
 | `@captigo/nextjs` | Next.js integration (App Router + Pages) | Planned |
 | `@captigo/sveltekit` | SvelteKit integration | Planned |
 
