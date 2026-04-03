@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/shared" },
+    { "path": "packages/turnstile" },
+    { "path": "packages/hcaptcha" },
+    { "path": "packages/recaptcha" },
+    { "path": "packages/react" },
+    { "path": "packages/vue" }
+  ]
+}
