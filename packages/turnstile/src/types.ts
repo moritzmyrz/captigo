@@ -41,8 +41,5 @@ export interface TurnstileSDK {
   isExpired(container: string | HTMLElement): boolean;
 }
 
-declare global {
-  interface Window {
-    turnstile?: TurnstileSDK;
-  }
-}
+// Global Window augmentation is in globals.d.ts to ensure it applies
+// to all files in this package without requiring an explicit import.

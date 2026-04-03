@@ -16,6 +16,9 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "clean": "rm -rf dist tsconfig.tsbuildinfo"
   },
   "dependencies": {
@@ -23,8 +26,11 @@
     "captigo": "workspace:*"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^3.1.1",
+    "jsdom": "^26.0.0",
     "tsup": "^8.3.0",
-    "typescript": "^5.7.3"
+    "typescript": "^5.7.3",
+    "vitest": "^3.1.1"
   },
   "keywords": ["captcha", "turnstile", "cloudflare"],
   "license": "MIT",

@@ -50,13 +50,11 @@ export async function verifyToken(
   try {
     const data = await postVerify<TurnstileVerifyResponse>(VERIFY_URL, fields);
 
-    return {
-      success: data.success,
-      provider: "turnstile",
-      challengeTs: data["challenge_ts"],
-      hostname: data.hostname,
-      errorCodes: data["error-codes"],
-    };
+    const result: VerifyResult = { success: data.success, provider: "turnstile" };
+    if (data["challenge_ts"] !== undefined) result.challengeTs = data["challenge_ts"];
+    if (data.hostname !== undefined) result.hostname = data.hostname;
+    if (data["error-codes"] !== undefined) result.errorCodes = data["error-codes"];
+    return result;
   } catch (err) {
     if (err instanceof CaptchaError) throw err;
 
