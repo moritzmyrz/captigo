@@ -133,7 +133,9 @@ export class TurnstileWidget implements CaptchaWidget {
           }
 
           // interactive mode: trigger the invisible challenge.
-          if (this.config.execution === "execute") {
+          // Guard against concurrent execute() calls that each queued a
+          // ready.then() before isExecuting was set.
+          if (this.config.execution === "execute" && !this.isExecuting) {
             this.isExecuting = true;
             window.turnstile!.execute(this.widgetId, action ? { action } : undefined);
           }
