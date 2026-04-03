@@ -1,6 +1,6 @@
 {
   "name": "@captigo/recaptcha",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Google reCAPTCHA v2 and v3 adapters for Captigo — client widgets and server verification",
   "type": "module",
   "exports": {
@@ -11,7 +11,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",

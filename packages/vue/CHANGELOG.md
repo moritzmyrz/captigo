@@ -1,5 +1,15 @@
 # @captigo/vue
 
+## 0.2.0
+
+### Minor Changes
+
+- Coordinated **v0.2.0** release. README and npm metadata alignment; runnable Vue form example in the monorepo.
+
+### Patch Changes
+
+- Depend on `@captigo/core@0.2.0`.
+
 ## 0.1.0
 
 ### Minor Changes

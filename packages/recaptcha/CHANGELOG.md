@@ -1,5 +1,15 @@
 # @captigo/recaptcha
 
+## 0.2.0
+
+### Minor Changes
+
+- Coordinated **v0.2.0** release. Documentation, examples, and npm metadata updates across the monorepo.
+
+### Patch Changes
+
+- Depend on `@captigo/core@0.2.0`.
+
 ## 0.1.0
 
 ### Minor Changes

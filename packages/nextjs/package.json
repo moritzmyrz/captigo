@@ -1,6 +1,6 @@
 {
   "name": "@captigo/nextjs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Next.js App Router helpers for Captigo — request parsing, client IP, and route-handler verification",
   "type": "module",
   "exports": {
@@ -11,7 +11,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",

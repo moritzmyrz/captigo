@@ -1,6 +1,6 @@
 {
   "name": "@captigo/hcaptcha",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "hCaptcha adapter for Captigo — client widget and server-side verification",
   "type": "module",
   "exports": {
@@ -11,7 +11,10 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist", "src"],
+  "files": [
+    "dist",
+    "src"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
@@ -35,7 +38,14 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": ["captcha", "captigo", "hcaptcha", "privacy", "security", "typescript"],
+  "keywords": [
+    "captcha",
+    "captigo",
+    "hcaptcha",
+    "privacy",
+    "security",
+    "typescript"
+  ],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/hcaptcha#readme",
   "repository": {

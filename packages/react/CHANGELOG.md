@@ -1,5 +1,16 @@
 # @captigo/react
 
+## 0.2.0
+
+### Minor Changes
+
+- Fix `CaptchaError` `provider` field for the “widget not mounted” path in `useCaptcha` (use `react` instead of `@captigo/core`).
+- Docs and tests for `onError` / `onExpire` and clearing token when the adapter changes.
+
+### Patch Changes
+
+- Depend on `@captigo/core@0.2.0`.
+
 ## 0.1.0
 
 ### Minor Changes

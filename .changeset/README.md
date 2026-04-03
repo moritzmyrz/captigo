@@ -15,7 +15,20 @@ Follow the interactive prompts to select the packages you changed and describe t
 ## Release process
 
 1. A contributor opens a PR and runs `pnpm changeset`.
-2. The CI release job detects pending changesets and opens (or updates) a "Release" PR.
-3. When the Release PR is merged, packages are versioned and published to npm automatically.
+2. Manually or via automation: merge the version bump (`pnpm changeset version`), commit, then publish.
+
+**Publishing from your machine**
+
+```bash
+pnpm install
+pnpm build
+pnpm exec changeset publish
+```
+
+If your npm account uses 2FA, pass a one-time password (same as `npm publish --otp`):
+
+```bash
+pnpm exec changeset publish --otp=123456
+```
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for more details.
