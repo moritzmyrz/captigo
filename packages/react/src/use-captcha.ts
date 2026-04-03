@@ -23,7 +23,7 @@ export interface UseCaptchaReturn {
    * return <div ref={containerRef} />;
    * ```
    */
-  containerRef: RefObject<HTMLDivElement | null>;
+  containerRef: RefObject<HTMLDivElement>;
 
   /**
    * The current token, or `null` if not yet solved or expired.
@@ -77,7 +77,7 @@ export function useCaptcha<TConfig extends AdapterConfig = AdapterConfig>(
   adapter: CaptchaAdapter<TConfig>,
   options: UseCaptchaOptions = {},
 ): UseCaptchaReturn {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const widgetRef = useRef<CaptchaWidget | null>(null);
   const [token, setToken] = useState<CaptchaToken | null>(null);
 

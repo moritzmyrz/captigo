@@ -82,9 +82,9 @@ export const Captcha = forwardRef<CaptchaHandle, CaptchaProps>(function Captcha(
   ref,
 ) {
   const { containerRef, token, execute, reset } = useCaptcha(adapter, {
-    onSuccess,
-    onError,
-    onExpire,
+    ...(onSuccess !== undefined && { onSuccess }),
+    ...(onError !== undefined && { onError }),
+    ...(onExpire !== undefined && { onExpire }),
   });
 
   useImperativeHandle(
