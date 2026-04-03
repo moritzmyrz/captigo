@@ -1,0 +1,23 @@
+{
+  "name": "@captigo-examples/vue-form-turnstile",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Example: Vue 3 contact form with Turnstile and optional live API",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@captigo/core": "workspace:*",
+    "@captigo/turnstile": "workspace:*",
+    "@captigo/vue": "workspace:*",
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.0"
+  }
+}
