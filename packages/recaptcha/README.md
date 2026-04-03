@@ -1,6 +1,6 @@
 # @captigo/recaptcha
 
-> Google reCAPTCHA v2 and v3 adapter for [captigo](https://github.com/moritzmyrz/captigo).
+> Google reCAPTCHA v2 and v3 adapters for [Captigo](https://github.com/moritzmyrz/captigo) — separate factories and verification helpers per major version.
 
 This package provides two separate factory functions — `recaptchaV2` and
 `recaptchaV3` — because v2 and v3 are fundamentally different in how they work:
@@ -18,10 +18,10 @@ This package provides two separate factory functions — `recaptchaV2` and
 ## Installation
 
 ```bash
-npm install @captigo/core @captigo/recaptcha
+npm install @captigo/recaptcha
 ```
 
-(`@captigo/core` is also installed automatically as a dependency — listing it explicitly is optional.)
+`@captigo/core` is installed automatically as a transitive dependency.
 
 ---
 
@@ -160,8 +160,11 @@ from your server.
 
 ---
 
-## Links
+## Documentation
 
+- [Server-side verification](https://github.com/moritzmyrz/captigo/blob/main/docs/server-verification.md) (reCAPTCHA sections)
+- [Compatibility / caveats](https://github.com/moritzmyrz/captigo/blob/main/docs/compatibility.md)
 - [reCAPTCHA v2 docs](https://developers.google.com/recaptcha/docs/display)
 - [reCAPTCHA v3 docs](https://developers.google.com/recaptcha/docs/v3)
-- [captigo monorepo](https://github.com/moritzmyrz/captigo)
+
+[Repository](https://github.com/moritzmyrz/captigo) · [Issues](https://github.com/moritzmyrz/captigo/issues)

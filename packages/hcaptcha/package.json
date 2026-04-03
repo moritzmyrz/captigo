@@ -35,14 +35,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": [
-    "captcha",
-    "captigo",
-    "hcaptcha",
-    "privacy",
-    "security",
-    "typescript"
-  ],
+  "keywords": ["captcha", "captigo", "hcaptcha", "privacy", "security", "typescript"],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/hcaptcha#readme",
   "repository": {

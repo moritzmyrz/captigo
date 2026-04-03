@@ -1,6 +1,6 @@
 # @captigo/turnstile
 
-> Cloudflare Turnstile adapter for [captigo](https://github.com/moritzmyrz/captigo).
+> Cloudflare Turnstile adapter for [Captigo](https://github.com/moritzmyrz/captigo) — client widget lifecycle and server-side token verification.
 
 Provides a browser-side widget lifecycle and a server-side token verification
 helper — both behind the same `CaptchaAdapter` interface that the rest of the
@@ -11,12 +11,10 @@ captigo ecosystem uses.
 ## Installation
 
 ```bash
-npm install @captigo/core @captigo/turnstile
-# or
-pnpm add @captigo/core @captigo/turnstile
+npm install @captigo/turnstile
 ```
 
-(`@captigo/core` is also installed automatically as a dependency of `@captigo/turnstile` — listing it explicitly is optional but keeps imports predictable.)
+`@captigo/core` is installed automatically as a transitive dependency. Add `@captigo/react` or `@captigo/vue` on the client if you use those integrations.
 
 ---
 
@@ -273,8 +271,10 @@ See the [CaptchaError source](https://github.com/moritzmyrz/captigo/blob/main/pa
 
 ---
 
-## Links
+## Documentation
 
+- [Server-side verification](https://github.com/moritzmyrz/captigo/blob/main/docs/server-verification.md) (Turnstile section)
+- [Compatibility / matrix](https://github.com/moritzmyrz/captigo/blob/main/docs/compatibility.md)
 - [Cloudflare Turnstile docs](https://developers.cloudflare.com/turnstile/)
-- [captigo monorepo](https://github.com/moritzmyrz/captigo)
-- [Report an issue](https://github.com/moritzmyrz/captigo/issues)
+
+[Repository](https://github.com/moritzmyrz/captigo) · [Issues](https://github.com/moritzmyrz/captigo/issues)

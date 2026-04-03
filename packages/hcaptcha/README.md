@@ -1,6 +1,6 @@
 # @captigo/hcaptcha
 
-> hCaptcha adapter for [captigo](https://github.com/moritzmyrz/captigo).
+> hCaptcha adapter for [Captigo](https://github.com/moritzmyrz/captigo) — client widget lifecycle and server-side token verification.
 
 Provides a browser-side widget lifecycle and a server-side token verification
 helper behind the same `CaptchaAdapter` interface as the rest of the captigo
@@ -11,10 +11,10 @@ ecosystem.
 ## Installation
 
 ```bash
-npm install @captigo/core @captigo/hcaptcha
+npm install @captigo/hcaptcha
 ```
 
-(`@captigo/core` is also installed automatically as a dependency — listing it explicitly is optional.)
+`@captigo/core` is installed automatically as a transitive dependency.
 
 ---
 
@@ -104,7 +104,10 @@ challenge, or rejects if the challenge expires or errors.
 
 ---
 
-## Links
+## Documentation
 
+- [Server-side verification](https://github.com/moritzmyrz/captigo/blob/main/docs/server-verification.md) (hCaptcha section)
+- [Supported providers](https://github.com/moritzmyrz/captigo/blob/main/docs/providers.md)
 - [hCaptcha docs](https://docs.hcaptcha.com/)
-- [captigo monorepo](https://github.com/moritzmyrz/captigo)
+
+[Repository](https://github.com/moritzmyrz/captigo) · [Issues](https://github.com/moritzmyrz/captigo/issues)
