@@ -100,6 +100,20 @@ describe("verifyToken()", () => {
 
       expect(result.hostname).toBe("mysite.com");
     });
+
+    it("maps score when present", async () => {
+      mockFetchOk({ success: true, score: 0.9 });
+      const result = await verifyToken("tok", "secret");
+
+      expect(result.score).toBe(0.9);
+    });
+
+    it("omits score when not present", async () => {
+      mockFetchOk({ success: true });
+      const result = await verifyToken("tok", "secret");
+
+      expect(result.score).toBeUndefined();
+    });
   });
 
   describe("failure response", () => {
