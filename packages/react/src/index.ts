@@ -1,64 +1,105 @@
-import type { CaptchaProvider, CaptchaProviderConfig, CaptchaToken } from "captigo";
+import type { AdapterConfig, CaptchaAdapter, CaptchaToken } from "captigo";
 
-// Re-export core types so consumers only need one import.
+// Re-export the types consumers are most likely to need from a single import.
 export type {
-  CaptchaCallbacks,
-  CaptchaProvider,
-  CaptchaProviderConfig,
+  AdapterConfig,
+  AdapterMeta,
+  CaptchaAdapter,
+  CaptchaError,
+  CaptchaMode,
   CaptchaToken,
-  CaptchaVerifyResult,
+  CaptchaWidget,
+  VerifyResult,
+  WidgetCallbacks,
 } from "captigo";
 
 // ─── useCaptcha ───────────────────────────────────────────────────────────────
 
+export interface UseCaptchaOptions {
+  /**
+   * Called when a token expires. In managed mode this triggers automatically;
+   * in interactive/passive mode you'll typically want to call `reset()`.
+   */
+  onExpire?: () => void;
+}
+
 export interface UseCaptchaReturn {
-  /** The most recently received token, or null if not yet solved or expired. */
+  /** The most recently received token, or `null` if not yet solved or expired. */
   token: CaptchaToken | null;
-  /** True while the widget script is loading. */
+  /** True while the provider script is loading. */
   isLoading: boolean;
-  /** Reset the widget back to its initial state. */
+  /** True if the widget is ready to accept an `execute()` call. */
+  isReady: boolean;
+  /**
+   * Trigger the challenge. For interactive/passive modes, call this on submit.
+   * For managed mode, this resolves immediately with the current token if one
+   * exists, or waits for the next solve.
+   */
+  execute: (action?: string) => Promise<CaptchaToken>;
+  /** Reset the widget to its initial state and clear the current token. */
   reset: () => void;
 }
 
 /**
- * Hook for managing a CAPTCHA widget lifecycle in a React component.
+ * Hook for managing a CAPTCHA widget inside a React component.
+ *
+ * Provide a `ref` to the container element for managed/interactive adapters.
+ * For passive adapters, `containerRef` may be omitted.
  *
  * @example
  * ```tsx
- * const { token, reset } = useCaptcha(provider);
+ * const containerRef = useRef<HTMLDivElement>(null);
+ * const { token, execute, isReady } = useCaptcha(adapter, containerRef);
+ *
+ * return (
+ *   <>
+ *     <div ref={containerRef} />
+ *     <button onClick={() => execute()}>Submit</button>
+ *   </>
+ * );
  * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useCaptcha<TConfig extends CaptchaProviderConfig>(
-  _provider: CaptchaProvider<TConfig>,
+export function useCaptcha<TConfig extends AdapterConfig>(
+  _adapter: CaptchaAdapter<TConfig>,
+  _containerRef?: { readonly current: HTMLElement | null },
+  _options?: UseCaptchaOptions,
 ): UseCaptchaReturn {
-  // TODO: implement
+  // TODO: implement using useEffect for render/destroy lifecycle,
+  //       useState for token/isLoading/isReady, useCallback for execute/reset
   throw new Error("@captigo/react: useCaptcha is not yet implemented");
 }
 
 // ─── CaptchaWidget ────────────────────────────────────────────────────────────
 
-export interface CaptchaWidgetProps<TConfig extends CaptchaProviderConfig> {
-  provider: CaptchaProvider<TConfig>;
+export interface CaptchaWidgetProps<TConfig extends AdapterConfig> {
+  adapter: CaptchaAdapter<TConfig>;
   onSuccess?: (token: CaptchaToken) => void;
   onError?: (error: unknown) => void;
   onExpire?: () => void;
   className?: string;
+  style?: Record<string, string>;
 }
 
 /**
- * Drop-in React component that renders the appropriate CAPTCHA widget
- * for the given provider.
+ * Drop-in component that renders the appropriate CAPTCHA widget for the given
+ * adapter and forwards lifecycle events via props.
+ *
+ * For interactive/passive adapters, expose a `ref` on the component to access
+ * `execute()` imperatively (full ref API coming in implementation).
  *
  * @example
  * ```tsx
- * <CaptchaWidget provider={provider} onSuccess={(t) => setToken(t.value)} />
+ * <CaptchaWidget
+ *   adapter={adapter}
+ *   onSuccess={(t) => setToken(t.value)}
+ * />
  * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function CaptchaWidget<TConfig extends CaptchaProviderConfig>(
+export function CaptchaWidget<TConfig extends AdapterConfig>(
   _props: CaptchaWidgetProps<TConfig>,
 ): null {
-  // TODO: implement
+  // TODO: implement as a wrapper around useCaptcha
   throw new Error("@captigo/react: CaptchaWidget is not yet implemented");
 }

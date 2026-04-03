@@ -1,63 +1,88 @@
-import type { CaptchaProvider, CaptchaProviderConfig, CaptchaToken } from "captigo";
+import type { AdapterConfig, CaptchaAdapter, CaptchaToken } from "captigo";
 
-// Re-export core types so consumers only need one import.
+// Re-export the types consumers are most likely to need from a single import.
 export type {
-  CaptchaCallbacks,
-  CaptchaProvider,
-  CaptchaProviderConfig,
+  AdapterConfig,
+  AdapterMeta,
+  CaptchaAdapter,
+  CaptchaError,
+  CaptchaMode,
   CaptchaToken,
-  CaptchaVerifyResult,
+  CaptchaWidget,
+  VerifyResult,
+  WidgetCallbacks,
 } from "captigo";
 
 // ─── useCaptcha ───────────────────────────────────────────────────────────────
 
+export interface UseCaptchaOptions {
+  /** Called when a token expires. */
+  onExpire?: () => void;
+}
+
 export interface UseCaptchaReturn {
-  /** The most recently received token, or null if not yet solved or expired. */
+  /** The most recently received token, or `null` if not yet solved or expired. */
   token: CaptchaToken | null;
-  /** True while the widget script is loading. */
+  /** True while the provider script is loading. */
   isLoading: boolean;
-  /** Reset the widget back to its initial state. */
+  /** True if the widget is ready to accept an `execute()` call. */
+  isReady: boolean;
+  /**
+   * Trigger the challenge. For interactive/passive modes, call this on submit.
+   * For managed mode, resolves with the current token or waits for the next solve.
+   */
+  execute: (action?: string) => Promise<CaptchaToken>;
+  /** Reset the widget to its initial state and clear the current token. */
   reset: () => void;
 }
 
 /**
  * Vue 3 composable for managing a CAPTCHA widget lifecycle.
  *
+ * Pass a `Ref<HTMLElement | null>` for the container for managed/interactive
+ * adapters. For passive adapters, `containerRef` may be omitted.
+ *
  * @example
  * ```ts
- * const { token, reset } = useCaptcha(provider);
+ * const containerRef = ref<HTMLDivElement | null>(null);
+ * const { token, execute } = useCaptcha(adapter, containerRef);
  * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function useCaptcha<TConfig extends CaptchaProviderConfig>(
-  _provider: CaptchaProvider<TConfig>,
+export function useCaptcha<TConfig extends AdapterConfig>(
+  _adapter: CaptchaAdapter<TConfig>,
+  _containerRef?: { readonly value: HTMLElement | null },
+  _options?: UseCaptchaOptions,
 ): UseCaptchaReturn {
-  // TODO: implement using Vue refs and lifecycle hooks
+  // TODO: implement using onMounted/onUnmounted for widget lifecycle,
+  //       ref() for token/isLoading/isReady, and computed for execute/reset
   throw new Error("@captigo/vue: useCaptcha is not yet implemented");
 }
 
 // ─── CaptchaWidget ────────────────────────────────────────────────────────────
 
-export interface CaptchaWidgetProps<TConfig extends CaptchaProviderConfig> {
-  provider: CaptchaProvider<TConfig>;
+export interface CaptchaWidgetProps<TConfig extends AdapterConfig> {
+  adapter: CaptchaAdapter<TConfig>;
   onSuccess?: (token: CaptchaToken) => void;
   onError?: (error: unknown) => void;
   onExpire?: () => void;
+  class?: string;
+  style?: Record<string, string>;
 }
 
 /**
- * Vue 3 component that renders the appropriate CAPTCHA widget for the given provider.
- * Register it globally or use it directly in SFCs.
+ * Vue 3 component that renders the appropriate CAPTCHA widget for the given
+ * adapter. Forwards lifecycle events via emits in the full implementation.
  *
  * @example
  * ```vue
- * <CaptchaWidget :provider="provider" @success="onToken" />
+ * <CaptchaWidget :adapter="adapter" @success="onToken" />
  * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function CaptchaWidget<TConfig extends CaptchaProviderConfig>(
+export function CaptchaWidget<TConfig extends AdapterConfig>(
   _props: CaptchaWidgetProps<TConfig>,
 ): null {
-  // TODO: implement as a Vue functional component
+  // TODO: implement as a defineComponent wrapping useCaptcha
   throw new Error("@captigo/vue: CaptchaWidget is not yet implemented");
 }
