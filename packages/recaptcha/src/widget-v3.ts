@@ -44,7 +44,7 @@ export class ReCaptchaV3Widget implements CaptchaWidget {
       .then(() => {
         // grecaptcha.execute(siteKey, { action }) is the v3 overload.
         return (
-          window.grecaptcha!.execute as (k: string, o: { action: string }) => Promise<string>
+          window.grecaptcha?.execute as (k: string, o: { action: string }) => Promise<string>
         )(this.config.siteKey, { action: resolvedAction });
       })
       .then((rawToken) => {

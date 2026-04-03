@@ -36,7 +36,14 @@ export class HCaptchaWidget implements CaptchaWidget {
     await loadScript();
     if (this.destroyed) return;
 
-    const sdk = window.hcaptcha!;
+    const sdk = window.hcaptcha;
+    if (!sdk) {
+      throw new CaptchaError(
+        "script-load-failed",
+        "hCaptcha SDK not available after script load.",
+        "hcaptcha",
+      );
+    }
 
     this.widgetId = sdk.render(this.container, {
       sitekey: this.config.siteKey,
@@ -122,7 +129,7 @@ export class HCaptchaWidget implements CaptchaWidget {
 
           if (this.config.size === "invisible" && !this.isExecuting) {
             this.isExecuting = true;
-            window.hcaptcha!.execute(this.widgetId);
+            window.hcaptcha?.execute(this.widgetId);
           }
           // normal/compact: wait for the user-driven callback
         })

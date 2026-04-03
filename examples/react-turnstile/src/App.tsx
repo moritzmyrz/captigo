@@ -81,7 +81,12 @@ function InvisibleExample() {
     e.preventDefault();
     setStatus("Triggering challenge…");
     try {
-      const token = await captchaRef.current!.execute("example-submit");
+      const widget = captchaRef.current;
+      if (!widget) {
+        setStatus("Captcha not ready.");
+        return;
+      }
+      const token = await widget.execute("example-submit");
       setStatus(`Token received (${token.value.slice(0, 12)}…). Would send to server here.`);
     } catch {
       setStatus("Challenge failed or was cancelled.");

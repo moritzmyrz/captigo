@@ -38,7 +38,14 @@ export class ReCaptchaV2Widget implements CaptchaWidget {
     await loadV2Script();
     if (this.destroyed) return;
 
-    const sdk = window.grecaptcha!;
+    const sdk = window.grecaptcha;
+    if (!sdk) {
+      throw new CaptchaError(
+        "script-load-failed",
+        "reCAPTCHA SDK not available after script load.",
+        "recaptcha-v2",
+      );
+    }
 
     this.widgetId = sdk.render(this.container, {
       sitekey: this.config.siteKey,
@@ -110,7 +117,7 @@ export class ReCaptchaV2Widget implements CaptchaWidget {
 
           if (this.config.size === "invisible" && !this.isExecuting) {
             this.isExecuting = true;
-            window.grecaptcha!.execute(this.widgetId);
+            window.grecaptcha?.execute(this.widgetId);
           }
           // checkbox/compact: wait for user interaction
         })

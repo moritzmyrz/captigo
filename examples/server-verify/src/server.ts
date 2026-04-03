@@ -27,7 +27,7 @@ app.post("/verify/turnstile", async (req, res) => {
     return;
   }
 
-  const secret = process.env["TURNSTILE_SECRET"] ?? "1x0000000000000000000000000000000AA"; // test secret
+  const secret = process.env.TURNSTILE_SECRET ?? "1x0000000000000000000000000000000AA"; // test secret
 
   try {
     const result = await verifyTurnstile(
@@ -66,7 +66,7 @@ app.post("/verify/hcaptcha", async (req, res) => {
     return;
   }
 
-  const secret = process.env["HCAPTCHA_SECRET"] ?? "0x0000000000000000000000000000000000000000";
+  const secret = process.env.HCAPTCHA_SECRET ?? "0x0000000000000000000000000000000000000000";
 
   try {
     const result = await verifyHcaptcha(token, secret);
@@ -95,7 +95,7 @@ app.post("/verify/recaptcha-v2", async (req, res) => {
     return;
   }
 
-  const secret = process.env["RECAPTCHA_V2_SECRET"] ?? "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
+  const secret = process.env.RECAPTCHA_V2_SECRET ?? "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
 
   try {
     const result = await verifyV2Token(token, secret);
@@ -124,7 +124,7 @@ app.post("/verify/recaptcha-v3", async (req, res) => {
     return;
   }
 
-  const secret = process.env["RECAPTCHA_V3_SECRET"] ?? "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
+  const secret = process.env.RECAPTCHA_V3_SECRET ?? "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe";
 
   try {
     const result = await verifyV3Token(token, secret);
@@ -149,7 +149,7 @@ app.post("/verify/recaptcha-v3", async (req, res) => {
 
 // ─── Start ────────────────────────────────────────────────────────────────────
 
-const PORT = process.env["PORT"] ?? 3000;
+const PORT = process.env.PORT ?? 3000;
 app.listen(PORT, () => {
   console.log(`captigo server-verify example running at http://localhost:${PORT}`);
   console.log("Endpoints:");

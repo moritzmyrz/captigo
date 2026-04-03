@@ -26,7 +26,7 @@ async function request(
   };
 
   if (options?.remoteip !== undefined) {
-    fields["remoteip"] = options.remoteip;
+    fields.remoteip = options.remoteip;
   }
 
   try {
@@ -63,7 +63,7 @@ export async function verifyV2Token(
   const data = await request(token, secretKey, "recaptcha-v2", options);
 
   const result: VerifyResult = { success: data.success, provider: "recaptcha-v2" };
-  if (data["challenge_ts"] !== undefined) result.challengeTs = data["challenge_ts"];
+  if (data.challenge_ts !== undefined) result.challengeTs = data.challenge_ts;
   if (data.hostname !== undefined) result.hostname = data.hostname;
   if (data["error-codes"] !== undefined) result.errorCodes = data["error-codes"];
   return result;
@@ -104,7 +104,7 @@ export async function verifyV3Token(
     success: data.success,
     provider: "recaptcha-v3",
   };
-  if (data["challenge_ts"] !== undefined) result.challengeTs = data["challenge_ts"];
+  if (data.challenge_ts !== undefined) result.challengeTs = data.challenge_ts;
   if (data.hostname !== undefined) result.hostname = data.hostname;
   if (data["error-codes"] !== undefined) result.errorCodes = data["error-codes"];
   if (data.score !== undefined) result.score = data.score;

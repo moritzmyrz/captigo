@@ -20,10 +20,10 @@ function TestWidget({ adapter, onSuccess, onError, onExpire }: Props) {
     <div>
       <div ref={containerRef} data-testid="container" />
       <span data-testid="token">{token?.value ?? "none"}</span>
-      <button data-testid="execute" onClick={() => execute()}>
+      <button type="button" data-testid="execute" onClick={() => execute()}>
         Execute
       </button>
-      <button data-testid="reset" onClick={reset}>
+      <button type="button" data-testid="reset" onClick={reset}>
         Reset
       </button>
     </div>

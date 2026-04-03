@@ -47,7 +47,12 @@ const invisibleStatus = ref("Click 'Submit' to trigger the challenge.");
 async function handleInvisibleSubmit() {
   invisibleStatus.value = "Triggering challenge…";
   try {
-    const token = await captchaRef.value!.execute("example-submit");
+    const inst = captchaRef.value;
+    if (!inst) {
+      invisibleStatus.value = "Captcha not ready.";
+      return;
+    }
+    const token = await inst.execute("example-submit");
     invisibleStatus.value = `Token received (${token.value.slice(0, 12)}…). Would send to server here.`;
   } catch {
     invisibleStatus.value = "Challenge failed or was cancelled.";

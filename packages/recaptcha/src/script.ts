@@ -86,6 +86,6 @@ export function loadV3Script(siteKey: string): Promise<void> {
  */
 export function whenReady(): Promise<void> {
   return new Promise<void>((resolve) => {
-    window.grecaptcha!.ready(resolve);
+    window.grecaptcha?.ready(resolve);
   });
 }

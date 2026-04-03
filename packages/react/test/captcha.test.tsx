@@ -101,7 +101,7 @@ describe("<Captcha />", () => {
       expect(ref.current).not.toBeNull();
 
       await act(async () => {
-        await ref.current!.execute();
+        await ref.current?.execute();
       });
 
       expect(mockWidget.execute).toHaveBeenCalledTimes(1);
@@ -113,7 +113,7 @@ describe("<Captcha />", () => {
       render(<Captcha ref={ref} adapter={mockAdapter} />);
 
       act(() => {
-        ref.current!.reset();
+        ref.current?.reset();
       });
 
       expect(mockWidget.reset).toHaveBeenCalledTimes(1);
@@ -124,7 +124,7 @@ describe("<Captcha />", () => {
       const { mockAdapter } = createMockAdapter();
       render(<Captcha ref={ref} adapter={mockAdapter} />);
 
-      expect(ref.current!.getToken()).toBeNull();
+      expect(ref.current?.getToken()).toBeNull();
     });
 
     it("getToken() returns the current token after solve", async () => {
@@ -137,7 +137,7 @@ describe("<Captcha />", () => {
       });
 
       await waitFor(() => {
-        expect(ref.current!.getToken()?.value).toBe("handle-token");
+        expect(ref.current?.getToken()?.value).toBe("handle-token");
       });
     });
 
@@ -147,7 +147,7 @@ describe("<Captcha />", () => {
       render(<Captcha ref={ref} adapter={mockAdapter} />);
 
       await act(async () => {
-        await ref.current!.execute("checkout");
+        await ref.current?.execute("checkout");
       });
 
       expect(mockWidget.execute).toHaveBeenCalledWith("checkout");

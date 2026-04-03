@@ -39,14 +39,14 @@ export async function verifyToken(
   };
 
   if (options?.remoteip !== undefined) {
-    fields["remoteip"] = options.remoteip;
+    fields.remoteip = options.remoteip;
   }
 
   try {
     const data = await postVerify<HCaptchaVerifyResponse>(VERIFY_URL, fields);
 
     const result: VerifyResult = { success: data.success, provider: "hcaptcha" };
-    if (data["challenge_ts"] !== undefined) result.challengeTs = data["challenge_ts"];
+    if (data.challenge_ts !== undefined) result.challengeTs = data.challenge_ts;
     if (data.hostname !== undefined) result.hostname = data.hostname;
     if (data["error-codes"] !== undefined) result.errorCodes = data["error-codes"];
     if (data.score !== undefined) result.score = data.score;

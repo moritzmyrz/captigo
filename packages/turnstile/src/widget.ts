@@ -44,8 +44,14 @@ export class TurnstileWidget implements CaptchaWidget {
     await loadScript();
     if (this.destroyed) return;
 
-    // window.turnstile is guaranteed to exist after loadScript() resolves.
-    const sdk = window.turnstile!;
+    const sdk = window.turnstile;
+    if (!sdk) {
+      throw new CaptchaError(
+        "script-load-failed",
+        "Turnstile SDK not available after script load.",
+        "turnstile",
+      );
+    }
 
     this.widgetId = sdk.render(this.container, {
       sitekey: this.config.siteKey,
@@ -143,7 +149,7 @@ export class TurnstileWidget implements CaptchaWidget {
           // ready.then() before isExecuting was set.
           if (this.config.execution === "execute" && !this.isExecuting) {
             this.isExecuting = true;
-            window.turnstile!.execute(this.widgetId, action ? { action } : undefined);
+            window.turnstile?.execute(this.widgetId, action ? { action } : undefined);
           }
           // managed mode: wait for the automatic callback.
         })

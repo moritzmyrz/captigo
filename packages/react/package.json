@@ -11,10 +11,7 @@
   },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "sideEffects": false,
   "scripts": {
     "build": "tsup",
@@ -46,15 +43,7 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "keywords": [
-    "captcha",
-    "react",
-    "hooks",
-    "components",
-    "security",
-    "typescript",
-    "captigo"
-  ],
+  "keywords": ["captcha", "react", "hooks", "components", "security", "typescript", "captigo"],
   "license": "MIT",
   "homepage": "https://github.com/moritzmyrz/captigo/tree/main/packages/react#readme",
   "repository": {
