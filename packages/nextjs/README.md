@@ -1,17 +1,18 @@
 # @captigo/nextjs
 
-Next.js helpers for [captigo](https://github.com/moritzmyrz/captigo) — token extraction, client IP resolution, and one-call route handler verification.
+> Next.js App Router helpers for [Captigo](https://github.com/moritzmyrz/captigo) — parse `Request`, resolve client IP, verify with any `CaptchaAdapter`.
 
-Works with any captigo adapter: Turnstile, hCaptcha, reCAPTCHA v2/v3, or a custom provider.
+Uses the Web `Request` API only (no runtime dependency on `next`). Pair with `@captigo/react` and an adapter such as `@captigo/turnstile` on the client.
 
 ---
 
 ## Installation
 
 ```bash
-pnpm add @captigo/nextjs @captigo/turnstile
-# or: pnpm add @captigo/nextjs @captigo/hcaptcha
+npm install @captigo/nextjs @captigo/turnstile
 ```
+
+`@captigo/core` is installed transitively. **`next` ≥ 14** is an optional peer (declared for version clarity; helpers work anywhere `Request` is available).
 
 ---
 
@@ -187,3 +188,13 @@ export async function submitAction(formData: FormData) {
 - **No `next` runtime dependency.** The helpers work with the standard Web `Request` API (available natively in Next.js App Router and Node.js 18+).
 - **Server-only.** Never call `adapter.verify()` or expose your secret key on the client.
 - **Provider-agnostic.** Pass any captigo adapter — `turnstile(config)`, `hcaptcha(config)`, `recaptchaV2(config)`, etc.
+
+---
+
+## Documentation
+
+- [Server-side verification](https://github.com/moritzmyrz/captigo/blob/main/docs/server-verification.md)
+- [Getting started](https://github.com/moritzmyrz/captigo/blob/main/docs/getting-started.md)
+- [Compatibility](https://github.com/moritzmyrz/captigo/blob/main/docs/compatibility.md)
+
+[@captigo/react](https://github.com/moritzmyrz/captigo/blob/main/packages/react/README.md) · [Repository](https://github.com/moritzmyrz/captigo) · [Issues](https://github.com/moritzmyrz/captigo/issues)

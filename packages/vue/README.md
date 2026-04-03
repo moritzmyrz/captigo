@@ -1,16 +1,18 @@
 # @captigo/vue
 
-Vue 3 composables and components for [captigo](https://github.com/moritzmyrz/captigo) — the provider-agnostic CAPTCHA library.
+> Vue 3 composables and components for [Captigo](https://github.com/moritzmyrz/captigo).
 
-Swap providers without changing your component tree. Works with `@captigo/turnstile`, `@captigo/hcaptcha`, and `@captigo/recaptcha`.
+Swap providers without changing your component tree — use `@captigo/turnstile`, `@captigo/hcaptcha`, or `@captigo/recaptcha`.
 
 ---
 
 ## Installation
 
 ```bash
-pnpm add @captigo/core @captigo/vue @captigo/turnstile
+npm install @captigo/vue @captigo/turnstile
 ```
+
+`@captigo/core` is installed transitively via the adapter. **Peer dependency:** `vue` **≥ 3.3**.
 
 ---
 
@@ -214,3 +216,13 @@ Score-based providers don't render a visible widget. The `<Captcha>` component s
 ### Vue Strict Mode
 
 `@captigo/vue` is compatible with Vue's production build. No special handling is needed for development strict mode since Vue 3 does not remount components the way React Strict Mode does.
+
+---
+
+## Documentation
+
+- [Getting started](https://github.com/moritzmyrz/captigo/blob/main/docs/getting-started.md)
+- [Framework integrations](https://github.com/moritzmyrz/captigo/blob/main/docs/frameworks.md)
+- [Server-side verification](https://github.com/moritzmyrz/captigo/blob/main/docs/server-verification.md)
+
+[@captigo/turnstile](https://github.com/moritzmyrz/captigo/blob/main/packages/turnstile/README.md) · [Repository](https://github.com/moritzmyrz/captigo) · [Issues](https://github.com/moritzmyrz/captigo/issues)

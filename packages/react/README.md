@@ -1,22 +1,18 @@
 # @captigo/react
 
-> React hooks and components for [captigo](https://github.com/moritzmyrz/captigo).
+> React 18+ hooks and components for [Captigo](https://github.com/moritzmyrz/captigo).
 
-Provider-agnostic React integration for CAPTCHA widgets. Works with any captigo
-adapter — bring your own provider.
+Provider-agnostic widgets: pass any `CaptchaAdapter` from `@captigo/turnstile`, `@captigo/hcaptcha`, or `@captigo/recaptcha`.
 
 ---
 
 ## Installation
 
 ```bash
-npm install @captigo/core
-npm install @captigo/react
-# plus your provider adapter, e.g.:
-npm install @captigo/turnstile
+npm install @captigo/react @captigo/turnstile
 ```
 
-React 18+ is required as a peer dependency.
+`@captigo/core` is installed transitively via the adapter. **Peer dependencies:** `react` and `react-dom` **18+**.
 
 ---
 
@@ -191,7 +187,9 @@ export async function POST(request: Request) {
 }
 ```
 
-See the [`@captigo/turnstile` README](../turnstile/README.md) for details.
+See the [`@captigo/turnstile` README](https://github.com/moritzmyrz/captigo/blob/main/packages/turnstile/README.md) for provider-specific verification options.
+
+For Next.js App Router route handlers, consider [`@captigo/nextjs`](https://github.com/moritzmyrz/captigo/blob/main/packages/nextjs/README.md).
 
 ---
 
@@ -285,8 +283,10 @@ twice; the widget is destroyed and remounted, which is expected and harmless.
 
 ---
 
-## Links
+## Documentation
 
-- [captigo monorepo](https://github.com/moritzmyrz/captigo)
-- [@captigo/turnstile](../turnstile/README.md) — Turnstile adapter
-- [Report an issue](https://github.com/moritzmyrz/captigo/issues)
+- [Getting started](https://github.com/moritzmyrz/captigo/blob/main/docs/getting-started.md)
+- [Framework integrations](https://github.com/moritzmyrz/captigo/blob/main/docs/frameworks.md)
+- [Server-side verification](https://github.com/moritzmyrz/captigo/blob/main/docs/server-verification.md)
+
+[@captigo/turnstile](https://github.com/moritzmyrz/captigo/blob/main/packages/turnstile/README.md) · [Repository](https://github.com/moritzmyrz/captigo) · [Issues](https://github.com/moritzmyrz/captigo/issues)
