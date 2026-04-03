@@ -1,6 +1,7 @@
 import { CaptchaError } from "@captigo/core";
 import type { CaptchaToken } from "@captigo/core";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { loadScript } from "../src/script.js";
 import type { TurnstileRenderOptions } from "../src/types.js";
 import { TurnstileWidget } from "../src/widget.js";
 
@@ -94,6 +95,61 @@ describe("TurnstileWidget", () => {
         container,
         expect.objectContaining({ execution: "execute" }),
       );
+    });
+  });
+
+  describe("script load failure", () => {
+    it("calls onError with the load error when loadScript rejects", async () => {
+      const onError = vi.fn();
+      vi.mocked(loadScript).mockRejectedValueOnce(
+        new CaptchaError("script-load-failed", "Network failed", "turnstile"),
+      );
+
+      new TurnstileWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn(), onError },
+      );
+
+      await flush();
+
+      expect(onError).toHaveBeenCalledWith(
+        expect.objectContaining({ code: "script-load-failed" }),
+      );
+    });
+
+    it("rejects any pending execute() calls when loadScript fails", async () => {
+      vi.mocked(loadScript).mockRejectedValueOnce(
+        new CaptchaError("script-load-failed", "Network failed", "turnstile"),
+      );
+
+      const widget = new TurnstileWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn() },
+      );
+
+      // Attach the rejection handler before any flush so there is no window
+      // where `promise` is rejected but unobserved.
+      const promise = widget.execute();
+      await expect(promise).rejects.toMatchObject({ code: "script-load-failed" });
+    });
+
+    it("preserves the original CaptchaError rather than wrapping it", async () => {
+      const original = new CaptchaError("script-load-failed", "Specific message", "turnstile");
+      vi.mocked(loadScript).mockRejectedValueOnce(original);
+
+      const onError = vi.fn();
+      new TurnstileWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn(), onError },
+      );
+
+      await flush();
+
+      // The exact same error instance should flow through — not a re-wrapped copy.
+      expect(onError.mock.calls[0]?.[0]).toBe(original);
     });
   });
 
