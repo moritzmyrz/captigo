@@ -47,8 +47,3 @@ export async function postVerify<T extends ProviderVerifyResponse>(
 
   return response.json() as Promise<T>;
 }
-
-// ─── Type utilities ───────────────────────────────────────────────────────────
-
-/** Make all properties of T optional except for those in K. */
-export type RequireOnly<T, K extends keyof T> = Partial<T> & Pick<T, K>;
