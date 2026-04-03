@@ -103,6 +103,15 @@ export class TurnstileWidget implements CaptchaWidget {
         // Pending execute() promises are kept alive — managed widgets can be
         // re-solved. Callers can call reset() to cancel them explicitly.
       },
+
+      // The challenge timed out before the user completed it. Treat it the
+      // same as an expiry — clear state and let the caller decide whether
+      // to reset and retry. The widget auto-refreshes by default.
+      "timeout-callback": () => {
+        this.token = null;
+        this.isExecuting = false;
+        this.callbacks.onExpire?.();
+      },
     });
   }
 
