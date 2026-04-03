@@ -115,8 +115,28 @@ The optional third argument accepts `{ remoteip }` to forward the visitor's IP
 to Cloudflare for additional signal:
 
 ```ts
-const result = await verifyToken(token, secret, { remoteip: request.headers.get("x-forwarded-for") ?? undefined });
+const result = await verifyToken(token, secret, {
+  remoteip: request.headers.get("x-forwarded-for") ?? undefined,
+});
 ```
+
+#### Using the score
+
+Turnstile includes a bot-likelihood score in the verification response (0.0 =
+likely bot, 1.0 = likely human). It is available on `result.score`:
+
+```ts
+const result = await verifyToken(token, secret);
+if (!result.success) return Response.json({ error: "CAPTCHA failed" }, { status: 400 });
+
+// Optional: tighten the threshold beyond Cloudflare's own threshold.
+if ((result.score ?? 1) < 0.5) {
+  return Response.json({ error: "Low confidence score" }, { status: 400 });
+}
+```
+
+> **Note:** The score is only present for Managed and Invisible widgets. It may
+> be absent for some configurations — always treat it as optional.
 
 ---
 
@@ -192,26 +212,51 @@ methods on the widget instance.
 
 ---
 
-## Error handling
+## Error and expiry handling
 
 ```ts
 import { CaptchaError } from "@captigo/turnstile";
 
-widget = adapter.render(container, {
+const widget = adapter.render(container, {
   callbacks: {
-    onSuccess: (token) => { /* ... */ },
+    onSuccess: (token) => {
+      submitForm(token.value);
+    },
     onError: (err) => {
-      if (err instanceof CaptchaError) {
-        console.error(err.code, err.message);
-        // err.code is one of: "script-load-failed" | "provider-error" |
-        //   "execute-failed" | "verify-failed" | ...
-      }
+      // err.code is one of: "script-load-failed" | "provider-error" | "execute-failed" | ...
+      console.error(`[${err.code}] ${err.message}`);
+      showErrorMessage("The CAPTCHA failed. Please try again.");
+    },
+    onExpire: () => {
+      // Fired when a token expires OR when the challenge presentation times out.
+      // The widget auto-refreshes by default (refreshExpired / refreshTimeout: "auto").
+      clearStoredToken();
     },
   },
 });
 ```
 
-See the [CaptchaError docs](https://github.com/moritzmyrz/captigo/blob/main/packages/core/src/errors.ts) for the full list of error codes.
+**`onExpire` is called in two situations:**
+- A previously issued token has expired (the user took too long to submit).
+- The challenge timed out before the user completed it.
+
+In both cases, any stored token is invalid and the widget will reset automatically
+(when using the default `refreshExpired: "auto"` / `refreshTimeout: "auto"` settings).
+
+See the [CaptchaError source](https://github.com/moritzmyrz/captigo/blob/main/packages/core/src/errors.ts) for the full list of error codes.
+
+---
+
+## VerifyResult fields
+
+| Field | Type | Description |
+|---|---|---|
+| `success` | `boolean` | Whether the token passed verification. |
+| `provider` | `string` | Always `"turnstile"`. |
+| `challengeTs` | `string?` | ISO 8601 timestamp of challenge completion. |
+| `hostname` | `string?` | The hostname that rendered the widget. |
+| `score` | `number?` | Bot-likelihood score (0.0 = bot, 1.0 = human). |
+| `errorCodes` | `string[]?` | Cloudflare error codes if `success` is `false`. |
 
 ---
 

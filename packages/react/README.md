@@ -110,6 +110,29 @@ export function LoginForm() {
 
 ---
 
+### Error and expiry handling
+
+Use `onError` and `onExpire` to keep the UI in sync with the widget state.
+`onExpire` fires both when an issued token expires and when the challenge
+presentation times out.
+
+```tsx
+<Captcha
+  adapter={adapter}
+  onSuccess={(t) => setToken(t.value)}
+  onError={(err) => {
+    console.error(err.code, err.message);
+    setStatus("The CAPTCHA failed. Please try again.");
+  }}
+  onExpire={() => {
+    setToken(null);
+    setStatus("Token expired. Please complete the challenge again.");
+  }}
+/>
+```
+
+---
+
 ### `useCaptcha` hook
 
 Use the hook when you need direct access to the container ref (e.g. custom
