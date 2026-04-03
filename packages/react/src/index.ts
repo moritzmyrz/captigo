@@ -17,9 +17,7 @@ export type {
   CaptchaErrorCode,
   CaptchaMode,
   CaptchaToken,
-  // CaptchaWidget (the core interface) is intentionally not re-exported here
-  // to avoid a naming conflict with Captcha component. Import it directly
-  // from "captigo" if you need the widget handle type.
+  CaptchaWidget,
   VerifyOptions,
   VerifyResult,
   WidgetCallbacks,
