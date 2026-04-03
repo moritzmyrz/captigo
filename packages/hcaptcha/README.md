@@ -2,6 +2,10 @@
 
 > hCaptcha adapter for [captigo](https://github.com/moritzmyrz/captigo).
 
+Provides a browser-side widget lifecycle and a server-side token verification
+helper behind the same `CaptchaAdapter` interface as the rest of the captigo
+ecosystem.
+
 ---
 
 ## Installation
@@ -85,15 +89,18 @@ challenge, or rejects if the challenge expires or errors.
 
 ---
 
-## Notable differences from Turnstile
+## Behavior notes
 
-- `execute()` is a void trigger in invisible mode — the token arrives via the
-  `onSuccess` callback and the promise resolves from that same callback path.
-- hCaptcha has a `chalexpired-callback` that fires when an invisible challenge
-  closes without being solved. Any pending `execute()` promises are rejected.
-- hCaptcha does not support per-execute action labels (the `action` parameter
-  in `widget.execute(action?)` is ignored).
-- The verify endpoint is `https://api.hcaptcha.com/siteverify`.
+- **Invisible mode:** Calling `widget.execute()` runs the challenge; the token
+  is delivered to `onSuccess`, and the promise returned by `execute()` resolves
+  once that happens.
+- **Challenge expiry:** If an invisible challenge is dismissed or expires
+  without a solve, any pending `execute()` promise is rejected.
+- **`execute(action?)`:** An optional `action` string may be passed for API
+  compatibility with captigo’s widget shape; hCaptcha does not use it, so it is
+  ignored.
+- **Server verification:** Tokens are checked with
+  `https://api.hcaptcha.com/siteverify` (see `adapter.verify`).
 
 ---
 
