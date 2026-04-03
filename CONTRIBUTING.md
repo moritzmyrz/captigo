@@ -25,15 +25,22 @@ pnpm install
 | `pnpm lint:fix` | Auto-fix lint issues |
 | `pnpm format` | Format all files with Biome |
 | `pnpm test` | Run all tests |
+| `pnpm changeset` | Add a changeset for a versioned change |
 
 ## Project structure
 
 ```
 captigo/
 ├── packages/          # Published npm packages
-│   └── core/          # @captigo/core — shared types and utilities
-├── apps/              # Internal applications (docs, playground, etc.)
-└── ...
+│   ├── core/          # captigo — core types and adapter interface
+│   ├── turnstile/     # @captigo/turnstile
+│   ├── hcaptcha/      # @captigo/hcaptcha
+│   ├── recaptcha/     # @captigo/recaptcha
+│   ├── react/         # @captigo/react
+│   ├── vue/           # @captigo/vue
+│   └── shared/        # @captigo/shared — internal utilities (not published)
+├── examples/          # Runnable example applications
+└── docs/              # Documentation guides
 ```
 
 ## Making changes
@@ -49,7 +56,7 @@ captigo/
 We use [Conventional Commits](https://www.conventionalcommits.org). Examples:
 
 ```
-feat(core): add provider registry
+feat(turnstile): add retry configuration option
 fix(hcaptcha): handle token expiry correctly
 docs: update contributing guide
 chore: bump deps
@@ -59,10 +66,11 @@ chore: bump deps
 
 Provider packages live under `packages/`. Each provider should:
 
-- Implement the `CaptchaProvider` interface from `@captigo/core`
+- Implement the `CaptchaAdapter` interface from `captigo`
 - Be named `@captigo/<provider-name>`
 - Include its own `README.md` with usage examples
-- Export a default-friendly API
+- Bundle internal utilities (do not list `@captigo/shared` as a runtime dependency)
+- Export a clean API surface — factory function, config type, `verifyToken`, `preloadScript`
 
 ## Questions
 
