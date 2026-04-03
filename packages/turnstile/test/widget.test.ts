@@ -18,6 +18,7 @@ type CapturedOptions = TurnstileRenderOptions & {
   callback: NonNullable<TurnstileRenderOptions["callback"]>;
   "error-callback": NonNullable<TurnstileRenderOptions["error-callback"]>;
   "expired-callback": NonNullable<TurnstileRenderOptions["expired-callback"]>;
+  "timeout-callback": NonNullable<TurnstileRenderOptions["timeout-callback"]>;
 };
 
 // ─── Setup ────────────────────────────────────────────────────────────────────
@@ -340,6 +341,21 @@ describe("TurnstileWidget", () => {
       capturedOptions["expired-callback"]();
 
       expect(onExpire).toHaveBeenCalledTimes(1);
+    });
+
+    it("calls onExpire and clears state when the challenge times out", async () => {
+      const onExpire = vi.fn();
+      const widget = new TurnstileWidget(
+        document.createElement("div"),
+        { siteKey: "k" },
+        { onSuccess: vi.fn(), onExpire },
+      );
+
+      await flush();
+      capturedOptions["timeout-callback"]();
+
+      expect(onExpire).toHaveBeenCalledTimes(1);
+      expect(widget.getToken()).toBeNull();
     });
 
     it("clears the token when it expires", async () => {
