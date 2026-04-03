@@ -1,37 +1,42 @@
+import { CaptchaError } from "captigo";
 import type {
-  CaptchaProvider,
-  CaptchaProviderConfig,
-  CaptchaVerifyResult,
+  AdapterConfig,
+  AdapterFactory,
+  AdapterMeta,
+  CaptchaAdapter,
+  CaptchaWidget,
+  RenderOptions,
   VerifyOptions,
+  VerifyResult,
 } from "captigo";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-/** reCAPTCHA v2 ("I'm not a robot" checkbox). */
-export interface ReCaptchaV2Config extends CaptchaProviderConfig {
+/** reCAPTCHA v2 — visible checkbox or invisible challenge. */
+export interface ReCaptchaV2Config extends AdapterConfig {
   version: "v2";
   /**
-   * Widget theme.
-   * @default "light"
+   * - `"checkbox"` (default) — visible "I'm not a robot" checkbox.
+   * - `"invisible"` — invisible widget, requires `widget.execute()`.
    */
+  mode?: "checkbox" | "invisible";
+  /** @default "light" */
   theme?: "light" | "dark";
-  /**
-   * Widget size.
-   * @default "normal"
-   */
+  /** @default "normal" */
   size?: "normal" | "compact";
 }
 
-/** reCAPTCHA v3 (invisible, score-based). */
-export interface ReCaptchaV3Config extends CaptchaProviderConfig {
+/** reCAPTCHA v3 — score-based, fully invisible. */
+export interface ReCaptchaV3Config extends AdapterConfig {
   version: "v3";
   /**
-   * The action name to associate with this verification.
-   * Used in the admin console to filter by interaction type.
+   * Default action label associated with this adapter (e.g. `"login"`).
+   * Can be overridden per `widget.execute(action)` call.
    */
   action?: string;
   /**
-   * Minimum score threshold to treat as human (0.0–1.0).
+   * Minimum score to treat as human. Checked during server-side `verify()`.
+   * Range: 0.0–1.0.
    * @default 0.5
    */
   scoreThreshold?: number;
@@ -39,40 +44,57 @@ export interface ReCaptchaV3Config extends CaptchaProviderConfig {
 
 export type ReCaptchaConfig = ReCaptchaV2Config | ReCaptchaV3Config;
 
-// ─── Provider ─────────────────────────────────────────────────────────────────
+// ─── Adapter ──────────────────────────────────────────────────────────────────
 
 const VERIFY_URL = "https://www.google.com/recaptcha/api/siteverify";
 
-export class ReCaptchaProvider implements CaptchaProvider<ReCaptchaConfig> {
-  readonly name = "recaptcha";
+class ReCaptchaAdapter implements CaptchaAdapter<ReCaptchaConfig> {
+  readonly meta: AdapterMeta;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(private readonly config: ReCaptchaConfig) {
+    this.meta = {
+      id: config.version === "v3" ? "recaptcha-v3" : "recaptcha-v2",
+      mode:
+        config.version === "v3"
+          ? "passive"
+          : config.mode === "invisible"
+            ? "interactive"
+            : "managed",
+      // v3 loads a script but needs no container element in the DOM
+      requiresContainer: config.version !== "v3",
+    };
+  }
+
+  render(_container: HTMLElement, _options: RenderOptions<ReCaptchaConfig>): CaptchaWidget {
+    // TODO: load reCAPTCHA script, call grecaptcha.render() (v2) or grecaptcha.execute() (v3)
+    void VERIFY_URL;
+    throw new CaptchaError("not-implemented", "render() not yet implemented", this.meta.id);
+  }
+
   async verify(
     _token: string,
     _secretKey: string,
     _options?: VerifyOptions,
-  ): Promise<CaptchaVerifyResult> {
+  ): Promise<VerifyResult> {
     // TODO: implement using @captigo/shared postVerify
-    // v3 should additionally check result.score >= config.scoreThreshold
-    void VERIFY_URL;
-    throw new Error("@captigo/recaptcha: verify() is not yet implemented");
+    // For v3: also check result.score >= config.scoreThreshold
+    throw new CaptchaError("not-implemented", "verify() not yet implemented", this.meta.id);
   }
 }
 
 /**
- * Create a reCAPTCHA provider instance.
+ * Create a Google reCAPTCHA adapter (v2 or v3).
  *
  * @example
  * ```ts
  * import { recaptcha } from "@captigo/recaptcha";
  *
- * // v2
- * const provider = recaptcha({ version: "v2", siteKey: "6Le..." });
+ * // v2 checkbox
+ * const adapter = recaptcha({ version: "v2", siteKey: "6Le..." });
  *
- * // v3
- * const provider = recaptcha({ version: "v3", siteKey: "6Le...", action: "login" });
+ * // v3 score-based
+ * const adapter = recaptcha({ version: "v3", siteKey: "6Le...", action: "login" });
  * ```
  */
-export function recaptcha(_config: ReCaptchaConfig): ReCaptchaProvider {
-  return new ReCaptchaProvider();
-}
+export const recaptcha: AdapterFactory<ReCaptchaConfig> = (config) =>
+  new ReCaptchaAdapter(config);

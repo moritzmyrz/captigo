@@ -1,60 +1,83 @@
+import { CaptchaError } from "captigo";
 import type {
-  CaptchaProvider,
-  CaptchaProviderConfig,
-  CaptchaVerifyResult,
+  AdapterConfig,
+  AdapterFactory,
+  AdapterMeta,
+  CaptchaAdapter,
+  CaptchaWidget,
+  RenderOptions,
   VerifyOptions,
+  VerifyResult,
 } from "captigo";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-export interface TurnstileConfig extends CaptchaProviderConfig {
+export interface TurnstileConfig extends AdapterConfig {
   /**
    * Widget appearance theme.
    * @default "auto"
    */
   theme?: "light" | "dark" | "auto";
   /**
-   * Widget size.
-   * @default "normal"
+   * Controls when the challenge fires.
+   * - `"render"` (default) — visible managed widget, fires automatically.
+   * - `"execute"` — invisible widget, fires only when `widget.execute()` is called.
    */
-  size?: "normal" | "compact";
+  execution?: "render" | "execute";
   /**
-   * Widget language override (e.g. "en", "de").
-   * Defaults to the user's browser language.
+   * Widget language override (e.g. `"en"`, `"de"`).
+   * Defaults to the visitor's browser language.
    */
   language?: string;
 }
 
-// ─── Provider ─────────────────────────────────────────────────────────────────
+// ─── Adapter ──────────────────────────────────────────────────────────────────
 
 const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
-export class TurnstileProvider implements CaptchaProvider<TurnstileConfig> {
-  readonly name = "turnstile";
+class TurnstileAdapter implements CaptchaAdapter<TurnstileConfig> {
+  readonly meta: AdapterMeta;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(private readonly config: TurnstileConfig) {
+    this.meta = {
+      id: "turnstile",
+      // execution: "execute" = invisible, requires widget.execute() call
+      mode: config.execution === "execute" ? "interactive" : "managed",
+      requiresContainer: true,
+    };
+  }
+
+  render(_container: HTMLElement, _options: RenderOptions<TurnstileConfig>): CaptchaWidget {
+    // TODO: load Cloudflare script, call window.turnstile.render()
+    void VERIFY_URL;
+    throw new CaptchaError("not-implemented", "render() not yet implemented", this.meta.id);
+  }
+
   async verify(
     _token: string,
     _secretKey: string,
     _options?: VerifyOptions,
-  ): Promise<CaptchaVerifyResult> {
-    // TODO: implement using @captigo/shared postVerify
-    void VERIFY_URL;
-    throw new Error("@captigo/turnstile: verify() is not yet implemented");
+  ): Promise<VerifyResult> {
+    // TODO: implement using @captigo/shared postVerify(VERIFY_URL, ...)
+    throw new CaptchaError("not-implemented", "verify() not yet implemented", this.meta.id);
   }
 }
 
 /**
- * Create a Turnstile provider instance.
+ * Create a Cloudflare Turnstile adapter.
  *
  * @example
  * ```ts
  * import { turnstile } from "@captigo/turnstile";
  *
- * const provider = turnstile({ siteKey: "0x..." });
- * const result = await provider.verify(token, process.env.TURNSTILE_SECRET);
+ * const adapter = turnstile({ siteKey: "0x..." });
+ *
+ * // Client
+ * const widget = adapter.render(container, { config, callbacks });
+ *
+ * // Server
+ * const result = await adapter.verify(token, process.env.TURNSTILE_SECRET!);
  * ```
  */
-export function turnstile(_config: TurnstileConfig): TurnstileProvider {
-  return new TurnstileProvider();
-}
+export const turnstile: AdapterFactory<TurnstileConfig> = (config) =>
+  new TurnstileAdapter(config);

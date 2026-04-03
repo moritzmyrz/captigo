@@ -1,21 +1,23 @@
+import { CaptchaError } from "captigo";
 import type {
-  CaptchaProvider,
-  CaptchaProviderConfig,
-  CaptchaVerifyResult,
+  AdapterConfig,
+  AdapterFactory,
+  AdapterMeta,
+  CaptchaAdapter,
+  CaptchaWidget,
+  RenderOptions,
   VerifyOptions,
+  VerifyResult,
 } from "captigo";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
-export interface HCaptchaConfig extends CaptchaProviderConfig {
+export interface HCaptchaConfig extends AdapterConfig {
   /**
-   * hCaptcha endpoint override (e.g. for enterprise).
-   * @default "https://hcaptcha.com"
-   */
-  endpoint?: string;
-  /**
-   * Widget size.
-   * @default "normal"
+   * Widget size and visibility.
+   * - `"normal"` (default) — visible checkbox.
+   * - `"compact"` — smaller visible checkbox.
+   * - `"invisible"` — no visible element; requires `widget.execute()`.
    */
   size?: "normal" | "compact" | "invisible";
   /**
@@ -23,40 +25,62 @@ export interface HCaptchaConfig extends CaptchaProviderConfig {
    * @default "light"
    */
   theme?: "light" | "dark";
+  /**
+   * hCaptcha endpoint override for enterprise plans.
+   * @default "https://hcaptcha.com"
+   */
+  endpoint?: string;
 }
 
-// ─── Provider ─────────────────────────────────────────────────────────────────
+// ─── Adapter ──────────────────────────────────────────────────────────────────
 
 const DEFAULT_ENDPOINT = "https://hcaptcha.com";
 const VERIFY_PATH = "/siteverify";
 
-export class HCaptchaProvider implements CaptchaProvider<HCaptchaConfig> {
-  readonly name = "hcaptcha";
+class HCaptchaAdapter implements CaptchaAdapter<HCaptchaConfig> {
+  readonly meta: AdapterMeta;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(private readonly config: HCaptchaConfig) {
+    this.meta = {
+      id: "hcaptcha",
+      // size: "invisible" requires an explicit widget.execute() call
+      mode: config.size === "invisible" ? "interactive" : "managed",
+      requiresContainer: true,
+    };
+  }
+
+  render(_container: HTMLElement, _options: RenderOptions<HCaptchaConfig>): CaptchaWidget {
+    // TODO: load hCaptcha script, call hcaptcha.render()
+    void DEFAULT_ENDPOINT;
+    void VERIFY_PATH;
+    throw new CaptchaError("not-implemented", "render() not yet implemented", this.meta.id);
+  }
+
   async verify(
     _token: string,
     _secretKey: string,
     _options?: VerifyOptions,
-  ): Promise<CaptchaVerifyResult> {
-    // TODO: implement using @captigo/shared postVerify
-    void DEFAULT_ENDPOINT;
-    void VERIFY_PATH;
-    throw new Error("@captigo/hcaptcha: verify() is not yet implemented");
+  ): Promise<VerifyResult> {
+    // TODO: implement using @captigo/shared postVerify(endpoint + VERIFY_PATH, ...)
+    throw new CaptchaError("not-implemented", "verify() not yet implemented", this.meta.id);
   }
 }
 
 /**
- * Create an hCaptcha provider instance.
+ * Create an hCaptcha adapter.
  *
  * @example
  * ```ts
  * import { hcaptcha } from "@captigo/hcaptcha";
  *
- * const provider = hcaptcha({ siteKey: "10000000-ffff-ffff-ffff-000000000001" });
- * const result = await provider.verify(token, process.env.HCAPTCHA_SECRET);
+ * const adapter = hcaptcha({ siteKey: "10000000-ffff-ffff-ffff-000000000001" });
+ *
+ * // Client
+ * const widget = adapter.render(container, { config, callbacks });
+ *
+ * // Server
+ * const result = await adapter.verify(token, process.env.HCAPTCHA_SECRET!);
  * ```
  */
-export function hcaptcha(_config: HCaptchaConfig): HCaptchaProvider {
-  return new HCaptchaProvider();
-}
+export const hcaptcha: AdapterFactory<HCaptchaConfig> = (config) =>
+  new HCaptchaAdapter(config);
